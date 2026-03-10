@@ -1,0 +1,64 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(196, 198, 199);
+}
+.main {
+  width: 85%;
+ background-color: white;
+  display: flex;
+  flex-direction: column;
+  margin: 50px;
+  justify-content: center;
+  border-radius: 10px;
+  
+}
+.main h1 {
+  font-size: 50px;
+  font-family: cursive;
+}
+
+.table-header {
+  display: flex;
+  flex-direction: row;
+  border-top: 1px solid  rgb(183, 180, 180);
+
+ 
+  border-bottom: 1px solid rgb(183, 180, 180);
+}
+.table-form {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid rgb(183, 180, 180);
+}
+span {
+  padding: 10px;
+
+  word-break: break-word;
+}
+span.id {
+  width: 3%;
+}
+span.name {
+  width: 10%;
+}
+span.email {
+  width: 20%;
+}
+span.password {
+  width: 40%;
+}
+span.role {
+  width: 7%;
+}
+span.created-date {
+  width: 10%;
+}
+span.action {
+  width: 10%;
+}

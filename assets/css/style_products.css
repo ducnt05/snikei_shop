@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  flex-direction: row;
+}
+.main {
+  width: 85%;
+  background-color: rgb(213, 214, 214);
+}
+.table-product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px;
+  width: 100%;
+}
+.table-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: white;
+  padding: 10px;
+  border-bottom: 1px solid rgb(180, 179, 179);
+}
+.table-form {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: white;
+  padding: 10px;
+  border-bottom: 1px solid rgb(180, 179, 179);
+  align-items: center;
+}
+span {
+  display: flex;
+  justify-content: start;
+}
+.id {
+  width: 2%;
+}
+.image {
+  width: 15%;
+}
+.name {
+  width: 10%;
+}
+.description {
+  width: 25%;
+ 
+}
+.category {
+  width: 8%;
+}
+.price {
+  width: 10%;
+}
+.discount-price {
+  width: 10%;
+}
+.quantity {
+  width: 10%;
+}
+.action {
+  width: 10%;
+  gap: 3px;
+}
+.btn-add {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    padding: 15px 60px;
+    border-radius: 10px;
+    
+}
+.add-product {
+    margin-top: 5%;
+}
+.btn-add:hover {
+    background-color: white
+}

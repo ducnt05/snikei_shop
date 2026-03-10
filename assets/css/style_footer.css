@@ -1,0 +1,24 @@
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding: 20px 50px;
+    border-top: 1px solid rgb(181, 177, 177);
+    
+}
+footer div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: start;
+    
+}
+footer a {
+    text-decoration: none;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+footer h3 {
+    
+}
