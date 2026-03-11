@@ -1,10 +1,38 @@
 <div class="sidebar">
-    <h1>Admin</h1>
-    <a href="./dashboard.php">Dashboard</a>
-    <a href="./products.php">Products</a>
-    <a href="">Orders</a>
-    <a href="./customers.php">Customers</a>
-    <a href="">Statistics</a>
-    <a href="">Setting</a>
+    <ul>
+        <span>Main</span>
+        <li>Dashboard</li>
+        <li>Payment</li>
+        <li class="dropdown">
+            Transactions
+            <ul class="submenu">
+                <li>Overview</li>
+                <li>Add Transaction</li>
+            </ul>
+        </li>
 
+        <li>Cards</li>
+        <li>Texes</li>
+        <li>Users</li>
+        <li>Chat</li>
+        <li>Contact List</li>
+        <li>Calendar</li>
+        <li>Invoice</li>
+        <span>Components</span>
+        <li class="dropdown">UI Elements
+            <ul class="submenu">
+                <li>Alerts</li>
+                <li>Avatar</li>
+                <li>Button</li>
+            </ul>
+
+        </li>
+        <li>Advanced UI</li>
+        <li>Map
+            <ul>
+                <li>Google Map</li>
+                <li>Vector Map</li>
+            </ul>
+        </li>
+    </ul>
 </div>

@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../assets/css/style_product_add.css">
-    <link rel="stylesheet" href="../assets/css/style_sidebar.css">
+    <link rel="stylesheet" href="../assets/css/style_admin/style_product_add.css">
+    <link rel="stylesheet" href="../assets/css/style_admin/style_sidebar.css">
 </head>
 
 <body>

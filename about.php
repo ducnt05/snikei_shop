@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./assets/css/style_header.css">
-    <link rel="stylesheet" href="./assets/css/style_footer.css">
-    <link rel="stylesheet" href="./assets/css/style_about.css">
+    <link rel="stylesheet" href="./assets/css/main.css/style_header.css">
+    <link rel="stylesheet" href="./assets/css/main.css/style_footer.css">
+    <link rel="stylesheet" href="./assets/css/main.css/style_about.css">
 </head>
 
 <body>
