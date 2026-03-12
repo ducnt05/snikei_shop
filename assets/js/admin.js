@@ -4,3 +4,16 @@ if (btn) {
     window.location.href = "./product_add.php";
   });
 }
+
+// Dropdown functionality for all dropdown items
+document.querySelectorAll(".dropdown").forEach(function (dropdown) {
+  dropdown.addEventListener("click", function () {
+    let submenu = this.querySelector(".submenu");
+
+    if (submenu.style.display === "block") {
+      submenu.style.display = "none";
+    } else {
+      submenu.style.display = "block";
+    }
+  });
+});
