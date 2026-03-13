@@ -67,3 +67,27 @@ window.addEventListener("scroll", function(){
   }
 
 });
+window.addEventListener("scroll", function(){
+
+  const element = document.querySelector(".form-contact .form-left");
+
+  const position = element.getBoundingClientRect().top;
+  const screenHeight = window.innerHeight;
+
+  if(position < screenHeight - 100){
+      element.classList.add("active");
+  }
+
+});
+window.addEventListener("scroll", function(){
+
+  const element = document.querySelector(".form-contact .form-right");
+
+  const position = element.getBoundingClientRect().top;
+  const screenHeight = window.innerHeight;
+
+  if(position < screenHeight - 100){
+      element.classList.add("active");
+  }
+
+});

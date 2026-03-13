@@ -17,3 +17,9 @@ document.querySelectorAll(".dropdown").forEach(function (dropdown) {
     }
   });
 });
+var darkmode = document.querySelector(".fa-sun");
+if (darkmode){
+  darkmode.addEventListener("click",function(){
+    document.body.classList.toggle("dark-mode")
+  })
+}

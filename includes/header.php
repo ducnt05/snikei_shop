@@ -7,7 +7,7 @@
         <a href="">Shop</a>
         <a href="./about.php">About</a>
         <a href="./blog.php">Blog</a>
-        <a href="">Contact</a>
+        <a href="./contact.php">Contact</a>
     </nav>
 
     <div class="header-actions">

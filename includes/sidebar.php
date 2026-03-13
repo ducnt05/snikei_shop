@@ -4,7 +4,7 @@
     <ul class="menu">
         <span>Main</span>
 
-        <li><a href="#"><i class="fa-solid fa-sliders"></i> Dashboard</a></li>
+        <li><a href="../admin/dashboard.php"><i class="fa-solid fa-sliders"></i> Dashboard</a></li>
 
         <li><a href="#"><i class="fa-solid fa-credit-card"></i> Payment</a></li>
 
@@ -26,13 +26,13 @@
 
         <li><a href="../admin/customers.php"><i class="fa-solid fa-users"></i> Users</a></li>
 
-        <li><a href="#"><i class="fa-brands fa-whatsapp"></i> Chat</a></li>
+        <li><a href="../admin/message.php"><i class="fa-solid fa-message"></i> Chat</a></li>
 
         <li><a href="#"><i class="fa-solid fa-address-book"></i> Contact List</a></li>
 
         <li><a href="#"><i class="fa-solid fa-calendar-alt"></i> Calendar</a></li>
 
-        <li><a href="#">Invoice</a></li>
+        <li><a href="#"><i class="fa-solid fa-file-invoice"></i> Invoice</a></li>
 
         <li><a href="../admin/products.php"><i class="fa-solid fa-shirt"></i> Products</a></li>
 

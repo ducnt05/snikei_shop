@@ -56,3 +56,6 @@ body {
     text-decoration: none;
     color: rgb(0, 67, 250);
 }
+.dark-mode {
+    background: #031022;
+}

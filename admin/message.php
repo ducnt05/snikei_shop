@@ -1,24 +1,24 @@
-<?php
-include("../config/config.php");
-$sql = "SELECT * FROM users";
-$result = mysqli_query($conn, $sql);
-?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin &#8211; Customers</title>
+    <title>Admin &#8211; Message</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style_admin/style_sidebar.css">
-    <link rel="stylesheet" href="../assets/css/style_admin/style_customers.css">
+    <link rel="stylesheet" href="../assets/css/style_admin/style_message.css">
 </head>
 
 <body>
     <?php
-    include("../includes/sidebar.php")
+    include("../includes/sidebar.php");
+    include("../config/config.php");
+    $sql = "SELECT * FROM contacts";
+    $result = mysqli_query($conn,$sql);
+    
     ?>
+
     <div class="main">
         <div class="main-header">
 
@@ -41,17 +41,18 @@ $result = mysqli_query($conn, $sql);
                 <a href="../index.php">Home</a>
             </div>
         </div>
-        <div class="users-container">
-            <div class="users-header">
-                <h2>Users Details</h2>
-                <button class="btn-add">+ Add User</button>
+        <div class="mess-container">
+            <div class="mess-header">
+                <h2>Message</h2>
             </div>
-            <div class="users-table">
+            <div class="mess-table">
                 <div class="table-head">
+
+                    <span class="id">Id</span>
                     <span class="name">Name</span>
                     <span class="email">Email</span>
 
-                    <span class="role">Role</span>
+                    <span class="message">Message</span>
                     <span class="registered-on">Registered On</span>
 
                     <span class="action">Action</span>
@@ -60,12 +61,13 @@ $result = mysqli_query($conn, $sql);
                 ?>
                 <div class="table-form">
 
+                    <span class="id"><?php echo $row["id"]; ?></span>
 
                     <span class="name"><?php echo $row["name"]; ?></span>
 
                     <span class="email"><?php echo $row["email"]; ?></span>
 
-                    <span class="role"><?php echo $row["role"]; ?></span>
+                    <span class="message"><?php echo $row["message"]; ?></span>
 
                     <span class="registered-on">
                         <?php echo $row["created_at"]; ?>
@@ -74,7 +76,7 @@ $result = mysqli_query($conn, $sql);
 
 
                     <span class="action">
-                        <a href="">Edit</a>
+                        <a href="">Reply</a>
                         <a href="">Delete</a>
                     </span>
                 </div>
@@ -84,8 +86,6 @@ $result = mysqli_query($conn, $sql);
             </div>
         </div>
     </div>
-
-
     <script src="../assets/js/admin.js"></script>
 </body>
 
