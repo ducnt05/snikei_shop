@@ -29,6 +29,8 @@ class AdminController extends Controller {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $productModel = new Product();
             $name = $_POST['name'] ?? null;
+            $description = $_POST['description'] ?? null;
+            $category = $_POST['category'] ?? null;
             $price = $_POST['price'] ?? null;
             $discount_price = $_POST['discount_price'] ?? null;
 
@@ -43,7 +45,7 @@ class AdminController extends Controller {
                 }
             }
 
-            if ($productModel->addProduct($name, $price, $discount_price, $image)) {
+            if ($productModel->addProduct($name, $description, $category, $price, $discount_price, $image)) {
                 $this->redirect('admin/products');
             }
 
