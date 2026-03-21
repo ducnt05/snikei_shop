@@ -1,0 +1,79 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  padding-top: 78px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.container h1 {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 100px;
+  padding: 70px;
+}
+.form-contact {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0 5%;
+
+  font-family: Arial, Helvetica, sans-serif;
+}
+.form-left {
+  display: flex;
+  flex-direction: column;
+
+  width: 50%;
+  transform: translateX(-200px);
+  opacity: 0;
+  transition: 1s;
+}
+.form-left.active {
+  transform: translateX(0);
+  opacity: 1;
+}
+.form-left form {
+  display: flex;
+  flex-direction: column;
+}
+form h2 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 35px;
+  padding: 20px 0;
+}
+
+form input {
+  width: 80%;
+  margin: 15px 0;
+  padding: 20px;
+  border: none;
+  border-bottom: 1px solid black;
+}
+form button {
+  width: 80%;
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: 20px;
+  color: white;
+  background-color: black;
+  cursor: pointer;
+}
+form button:hover {
+  background-color: rgb(34, 34, 34);
+}
+.form-contact .form-right {
+  transform: translateX(200px);
+  opacity: 0;
+  transition: 1s;
+}
+.form-contact .form-right.active {
+    transform: translateX(0);
+    opacity: 1;
+}

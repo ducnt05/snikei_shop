@@ -1,0 +1,43 @@
+.sidebar {
+  background-color: #031022;
+  width: 18%;
+  padding-left: 30px;
+}
+.sidebar h1 {
+  color: white;
+  padding: 40px 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.sidebar span {
+  color: white;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+.menu {
+  list-style: none;
+  color: rgb(214, 213, 213);
+}
+.menu li {
+  padding: 10px 20px;
+}
+
+.submenu {
+  list-style: none;
+  display: none;
+  padding-left: 20px;
+}
+
+.dropdown {
+  cursor: pointer;
+}
+.menu a {
+  text-decoration: none;
+  
+  color: rgb(151, 151, 151);
+  display: block;
+  padding: 8px 12px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.menu a:hover {
+  color: white;
+}
