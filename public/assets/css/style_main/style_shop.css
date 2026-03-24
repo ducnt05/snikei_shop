@@ -45,6 +45,9 @@ body {
   padding: 8px 12px;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
+.sidebar a:hover {
+  color: #0322ef;
+}
 .sidebar .dropdown {
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -57,19 +60,31 @@ body {
   display: flex;
   gap: 20px;
   flex-direction: row;
-    
 }
 .container .product {
-    width: 75%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 100px;
+  width: 75%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 100px;
 }
 
+.product .video-wrapper {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 230px;
+  width: 450px;
 
+  cursor: pointer;
+}
 
+.video-wrapper video {
+  width: 100%;
+  display: flex;
+}
 .product-card {
   width: 22%;
+  cursor: pointer;
 }
 
 .product-card .name {

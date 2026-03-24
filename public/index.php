@@ -84,6 +84,16 @@ switch ($route) {
     case '/categories':
         (new CategoriesController())->index();
         break;
+    case '/category/sneakers' :
+    case '/category/boots' :
+    case '/category/formal' :
+    case '/category/running' :
+    case '/category/oxford' :
+    case '/category/sports-shoe' :
+    case '/category/high-neck' :
+    case '/category/loafers' :
+        (new CategoriesController())->create();
+        break;
     default:
         http_response_code(404);
         echo '404 Not Found';

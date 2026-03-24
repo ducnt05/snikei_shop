@@ -20,44 +20,48 @@
                 <div class="dropdown">
                     <span href="" class="dropbtn">Categories</span>
                     <div class="dropdown-content">
-                        <a href="#">All Products</a>
-                        <a href="">Sneaker</a>
-                        <a href="">Boots</a>
-                        <a href="">Formal</a>
-                        <a href="">Running</a>
-                        <a href="">Oxford</a>
-                        <a href="">Sports Shoe</a>
-                        <a href="">High Neck</a>
-                        <a href="">Loafers</a>
+                        <a href="<?= BASE_URL ?>/shop">All Products</a>
+                        <a href="<?= BASE_URL ?>/category/sneakers">Sneaker</a>
+                        <a href="<?= BASE_URL ?>/category/boots">Boots</a>
+                        <a href="<?= BASE_URL ?>/category/formal">Formal</a>
+                        <a href="<?= BASE_URL ?>/category/running">Running</a>
+                        <a href="<?= BASE_URL ?>/category/oxford">Oxford</a>
+                        <a href="<?= BASE_URL ?>/category/sports-shoe">Sports Shoe</a>
+                        <a href="<?= BASE_URL ?>/category/high-neck">High Neck</a>
+                        <a href="<?= BASE_URL ?>/category/loafers">Loafers</a>
 
                     </div>
                 </div>
                 <div class="dropdown">
                     <span href="" class="dropbtn">Price Range</span>
                     <div class="dropdown-content">
-                        <a href="">$0 - $50</a>
-                        <a href="">$50 - $100</a>
-                        <a href="">$100 - $200</a>
-                        <a href="">$200 - $500</a>
-                        <a href="">$500+</a>
+                        <a href="<?= BASE_URL ?>/price/0-50">$0 - $50</a>
+                        <a href="<?= BASE_URL ?>/price/50-100">$50 - $100</a>
+                        <a href="<?= BASE_URL ?>/price/100-200">$100 - $200</a>
+                        <a href="<?= BASE_URL ?>/price/200-500">$200 - $500</a>
+                        <a href="<?= BASE_URL ?>/price/500+">$500+</a>
                     </div>
 
                 </div>
                 <div class="dropdown">
                     <span href="" class="dropbtn">Color</span>
                     <div class="dropdown-content">
-                        <a href="">Black</a>
-                        <a href="">White</a>
-                        <a href="">Red</a>
-                        <a href="">Blue</a>
-                        <a href="">Green</a>
+                        <a href="<?= BASE_URL ?>/color/black">Black</a>
+                        <a href="<?= BASE_URL ?>/color/white">White</a>
+                        <a href="<?= BASE_URL ?>/color/red">Red</a>
+                        <a href="<?= BASE_URL ?>/color/blue">Blue</a>
+                        <a href="<?= BASE_URL ?>/color/green">Green</a>
                     </div>
                 </div>
             </div>
             <div class="product">
-                <video autoplay muted loop height="260px">
-                    <source src="<?= BASE_URL ?>/uploads/sora1.mp4" type="video/mp4">
-                </video>
+                <!-- <div class="video-wrapper">
+                    <video autoplay muted loop>
+                        <source src="<?= BASE_URL ?>/uploads/sora1.mp4" type="video/mp4">
+                    </video>
+
+                </div> -->
+
                 <?php foreach ($products as $product): ?>
                 <div class=" product-card">
                     <div class="image">

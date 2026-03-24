@@ -37,14 +37,14 @@
                     <label for="category">Category</label>
                     <select name="category">
                         <option value="">Select Category</option>
-                        <option value="Sneakers">Sneakers</option>
-                        <option value="Boots">Boots</option>
-                        <option value="Formal">Formal</option>
-                        <option value="Running">Running</option>
-                        <option value="Oxford">Oxford</option>
-                        <option value="Sports Shoe">Sports Shoe</option>
-                        <option value="High Neck">High Neck</option>
-                        <option value="Loafers">Loafers</option>
+                        <option value="sneakers">Sneakers</option>
+                        <option value="boots">Boots</option>
+                        <option value="formal">Formal</option>
+                        <option value="running">Running</option>
+                        <option value="oxford">Oxford</option>
+                        <option value="sports-shoe">Sports Shoe</option>
+                        <option value="high-neck">High Neck</option>
+                        <option value="loafers">Loafers</option>
                     </select>
                     <div class="price">
                         <div>

@@ -33,7 +33,7 @@ class AdminController extends Controller {
             $category = $_POST['category'] ?? null;
             $price = $_POST['price'] ?? null;
             $discount_price = $_POST['discount_price'] ?? null;
-
+            $quantity = $_POST['quantity'] ?? null;
             // Handle file upload
             $image = '';
             if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
@@ -45,7 +45,7 @@ class AdminController extends Controller {
                 }
             }
 
-            if ($productModel->addProduct($name, $description, $category, $price, $discount_price, $image)) {
+            if ($productModel->addProduct($name, $description, $category, $price, $discount_price, $quantity, $image)) {
                 $this->redirect('admin/products');
             }
 

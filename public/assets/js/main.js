@@ -91,3 +91,15 @@ window.addEventListener("scroll", function(){
   }
 
 });
+if (document.querySelector(".btn-shop")) {
+  const btnShop = document.querySelector(".btn-shop");
+  btnShop.addEventListener("click", function () {
+    window.location.href = "./shop";
+  });
+}
+if (document.querySelector(".btn-categories")) {
+  const btnCategories = document.querySelector(".btn-categories");
+  btnCategories.addEventListener("click", function () {
+    window.location.href = "./categories";
+  });
+}

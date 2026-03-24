@@ -18,9 +18,9 @@ class Product {
         return $stmt->fetchAll();
     }
 
-    public function addProduct($name,$description,$category, $price, $discount_price, $image) {
-        $stmt = $this->db->prepare("INSERT INTO products (name, description, category, price, discount_price, image) VALUES (?, ?, ?, ?, ?, ?)");
-        return $stmt->execute([$name, $description, $category, $price, $discount_price, $image]);
+    public function addProduct($name,$description,$category, $price, $discount_price, $quantity, $image) {
+        $stmt = $this->db->prepare("INSERT INTO products (name, description, category, price, discount_price, quantity, image) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        return $stmt->execute([$name, $description, $category, $price, $discount_price, $quantity, $image]);
     }
 
     public function deleteProduct($id) {
