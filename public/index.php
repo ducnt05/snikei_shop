@@ -10,6 +10,8 @@ use App\Controllers\ContactController;
 use App\Controllers\HomeController;
 use App\Controllers\AuthController;
 use App\Controllers\RegisterController;
+use App\Controllers\ShopController;
+use App\Controllers\CategoriesController;
 
 // Base URL for redirects and links. It points to the directory containing index.php.
 define('BASE_URL', rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/'));
@@ -75,6 +77,12 @@ switch ($route) {
         break;
     case '/admin/delete_product':
         (new AdminController())->deleteProduct((int)($_GET['id'] ?? 0));
+        break;
+    case '/shop':
+        (new ShopController())->index();
+        break;
+    case '/categories':
+        (new CategoriesController())->index();
         break;
     default:
         http_response_code(404);
