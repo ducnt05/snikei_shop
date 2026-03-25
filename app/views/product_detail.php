@@ -93,23 +93,23 @@
                 <li>Premium craftsmanship with durable stitching and finishes</li>
             </ul>
         </div>
-        <div class="simulator-product">
+        <div class="similar-product">
             <h2>Similar Products</h2>
             <div class="product">
 
-                <?php foreach ($simulatorproduct as $simulatorproduct): ?>
+                <?php foreach ($similarProduct as $similarProduct): ?>
                 <div class=" product-card">
                     <div class="image">
-                        <a href="<?= BASE_URL ?>/shop?id=<?= $simulatorproduct['id'] ?>">
-                            <img src="<?= BASE_URL ?>/uploads/<?php echo $simulatorproduct["image"] ?>" alt=""
+                        <a href="<?= BASE_URL ?>/shop?id=<?= $similarProduct['id'] ?>">
+                            <img src="<?= BASE_URL ?>/uploads/<?php echo $similarProduct["image"] ?>" alt=""
                                 width="250px">
                         </a>
                     </div>
-                    <span class="name"><?php echo $simulatorproduct["name"] ?></span>
+                    <span class="name"><?php echo $similarProduct["name"] ?></span>
                     <div class="price">
-                        <span>$<?php echo number_format($simulatorproduct["discount_price"], 0, ",", "."); ?></span>
+                        <span>$<?php echo number_format($similarProduct["discount_price"], 0, ",", "."); ?></span>
                         <span
-                            class="old-price"><del>$<?php echo number_format($simulatorproduct["price"], 0, ",", "."); ?></del></span>
+                            class="old-price"><del>$<?php echo number_format($similarProduct["price"], 0, ",", "."); ?></del></span>
                     </div>
                 </div>
                 <?php endforeach; ?>

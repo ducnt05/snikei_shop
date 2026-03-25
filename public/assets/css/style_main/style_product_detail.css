@@ -133,14 +133,14 @@ body {
    gap: 10px;
    font-family: cursive;
 }
-.container .simulator-product{
+.container .similar-product{
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: 100px 0;
     
 }
-.simulator-product h2 {
+.similar-product h2 {
     font-size: 50px;
     font-family: Arial, Helvetica, sans-serif;
     margin-bottom: 50px;

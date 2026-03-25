@@ -15,7 +15,7 @@ class ShopController extends Controller {
         
         $productModel = new Product();
         $product = $productModel->getProductById($id);
-        $simulatorproduct = $productModel->getProductByCategory($product['category']);
+        $similarProduct = $productModel->getProductByCategory($product['category']);
 
         if (!$product) {
             http_response_code(404);
@@ -23,6 +23,6 @@ class ShopController extends Controller {
             return;
         }
 
-        $this->view('product_detail', compact('product', 'simulatorproduct'));
+        $this->view('product_detail', compact('product', 'similarProduct'));
     }
 }
