@@ -78,9 +78,7 @@ switch ($route) {
     case '/admin/delete_product':
         (new AdminController())->deleteProduct((int)($_GET['id'] ?? 0));
         break;
-    case '/shop':
-        (new ShopController())->index();
-        break;
+
     case '/categories':
         (new CategoriesController())->index();
         break;
@@ -94,6 +92,15 @@ switch ($route) {
     case '/category/loafers' :
         (new CategoriesController())->create();
         break;
+    case '/shop':
+    $id = (int)($_GET['id'] ?? 0);
+
+    if ($id > 0) {
+        (new ShopController())->show($id);
+    } else {
+        (new ShopController())->index();
+    }
+    break;
     default:
         http_response_code(404);
         echo '404 Not Found';

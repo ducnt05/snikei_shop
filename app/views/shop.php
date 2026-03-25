@@ -65,7 +65,9 @@
                 <?php foreach ($products as $product): ?>
                 <div class=" product-card">
                     <div class="image">
-                        <img src="<?= BASE_URL ?>/uploads/<?php echo $product["image"] ?>" alt="" width="250px">
+                        <a href="<?= BASE_URL ?>/shop?id=<?= $product['id'] ?>">
+                            <img src="<?= BASE_URL ?>/uploads/<?php echo $product["image"] ?>" alt="" width="250px">
+                        </a>
                     </div>
                     <span class="name"><?php echo $product["name"] ?></span>
                     <div class="price">

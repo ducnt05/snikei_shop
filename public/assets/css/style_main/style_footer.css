@@ -10,15 +10,18 @@ footer {
 footer div {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     text-align: start;
+    padding: 50px 0;
+    
     
 }
 footer a {
     text-decoration: none;
     color: black;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
 }
 footer h3 {
-    
+  font-family: 'Montserrat', sans-serif;
 }

@@ -11,5 +11,18 @@ class ShopController extends Controller {
 
         $this->view('shop', compact('products'));
     }
+    public function show($id) {
+        
+        $productModel = new Product();
+        $product = $productModel->getProductById($id);
+        $simulatorproduct = $productModel->getProductByCategory($product['category']);
+
+        if (!$product) {
+            http_response_code(404);
+            echo 'Product not found';
+            return;
+        }
+
+        $this->view('product_detail', compact('product', 'simulatorproduct'));
+    }
 }
-?>

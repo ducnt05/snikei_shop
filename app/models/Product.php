@@ -17,6 +17,11 @@ class Product {
         $stmt->execute([$category]);
         return $stmt->fetchAll();
     }
+    public function getProductById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM products WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
 
     public function addProduct($name,$description,$category, $price, $discount_price, $quantity, $image) {
         $stmt = $this->db->prepare("INSERT INTO products (name, description, category, price, discount_price, quantity, image) VALUES (?, ?, ?, ?, ?, ?, ?)");
