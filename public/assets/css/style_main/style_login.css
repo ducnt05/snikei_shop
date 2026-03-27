@@ -15,9 +15,9 @@ body {
 }
 .login-form h1 {
   text-align: center;
-
+margin-bottom: 50px;
   font-size: 40px;
-  font-family: cursive;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .login-form form {
   display: flex;
@@ -31,7 +31,6 @@ form input {
   margin-bottom: 20px;
   border: none;
   border-bottom: 1px solid #ccc;
-  font: bold 20px cursive;
 }
 form span {
   text-align: start;
