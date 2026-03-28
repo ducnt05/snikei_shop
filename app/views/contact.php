@@ -8,11 +8,13 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_main/style_contact.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_main/style_header.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_main/style_footer.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_main/style_cart_shop.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
     <?php include("includes/header.php"); ?>
+    <?php include("includes/cart_shop.php"); ?>
     <div class="container">
         <div class="heading">
             <h1>Contact Now</h1>

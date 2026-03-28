@@ -103,3 +103,19 @@ if (document.querySelector(".btn-categories")) {
     window.location.href = "./categories";
   });
 }
+if (document.querySelector(".btn-cartshop")) {
+  const btnCartShop = document.querySelector(".btn-cartshop");
+  const cartShop = document.querySelector(".cart-shop");
+  const overlay = document.querySelector(".overlay");
+  const btnCloseCartShop = document.querySelector(".cart-shop .cart-head button");
+
+  btnCartShop.addEventListener("click", function () {
+    cartShop.classList.add("active");
+    overlay.classList.add("active");
+  });
+
+  btnCloseCartShop.addEventListener("click", function () {
+    cartShop.classList.remove("active");
+    overlay.classList.remove("active");
+  });
+}

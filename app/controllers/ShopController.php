@@ -25,4 +25,9 @@ class ShopController extends Controller {
 
         $this->view('product_detail', compact('product', 'similarProduct'));
     }
+    public function addToCart() {
+        $productId = $_POST['product_id'] ?? null;
+        $quantity = $_POST['quantity'] ?? 1;
+
+    }
 }

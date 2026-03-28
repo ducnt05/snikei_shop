@@ -9,10 +9,12 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_main/style_header.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_main/style_footer.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_main/style_shop.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_main/style_cart_shop.css">
 </head>
 
 <body>
     <?php include("includes/header.php"); ?>
+    <?php include("includes/cart_shop.php"); ?>
     <div class="container">
         <h1>Explore Our Shop</h1>
         <div class="row">
@@ -82,6 +84,7 @@
     </div>
 
     <?php include("includes/footer.php"); ?>
+    <script src="<?= BASE_URL ?>/assets/js/main.js"></script>
 </body>
 
 </html>

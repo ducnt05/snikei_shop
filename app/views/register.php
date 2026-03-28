@@ -9,10 +9,12 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_main/style_register.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_main/style_header.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_main/style_footer.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_main/style_cart_shop.css">
 </head>
 
 <body>
     <?php include("includes/header.php"); ?>
+    <?php include("includes/cart_shop.php"); ?>
 
     <div class="sign-up-form">
         <h1>Sign up</h1>
@@ -29,6 +31,7 @@
     </div>
 
     <?php include("includes/footer.php"); ?>
+    <script src="<?= BASE_URL ?>/assets/js/main.js"></script>
 </body>
 
 </html>

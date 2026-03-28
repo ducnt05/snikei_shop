@@ -12,7 +12,7 @@
 
     <div class="header-actions">
         <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
-        <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+        <a class="btn-cartshop"><i class="fa-solid fa-cart-shopping"></i></a>
         <a href="<?= BASE_URL ?>/login"><i class="fa-solid fa-user"></i></a>
     </div>
 

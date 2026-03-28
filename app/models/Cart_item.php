@@ -1,0 +1,15 @@
+<?php
+namespace App\Models;
+
+class Cart_item {
+    private $db;
+
+    public function __construct() {
+        $this->db = Database::getInstance()->getConnection();
+    }
+    public function getAllCartItems() {
+        $stmt = $this->db->query("SELECT * FROM cart_items");
+        return $stmt->fetchAll();
+    }
+
+}?>
