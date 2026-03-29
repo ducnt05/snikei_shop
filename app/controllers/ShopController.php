@@ -67,6 +67,7 @@ class ShopController extends Controller {
         $cartItemModel = new Cart_item();
         $ordersModel = new Orders();
         $orderItemsModel = new OrderItems();
+        $productModel = new Product();
 
         // Get cart ID for user
         $cartId = $cartModel->getIdCart($userId);
@@ -100,6 +101,13 @@ class ShopController extends Controller {
                         $item['quantity'] ?? 0,
                         $item['discount_price'] ?? 0
                     );
+                    // Update product quantity
+                    $productId = $item['product_id'] ?? null;
+                    if ($productId) {
+                        $currentQuantity = $productModel->getQuantityProduct($productId);
+                        $newQuantity = max(0, $currentQuantity - (int)($item['quantity'] ?? 0));
+                        $productModel->updateQuantityProduct($productId, $newQuantity);
+                    }
                 }
             }
         }

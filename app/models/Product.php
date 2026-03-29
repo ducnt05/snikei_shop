@@ -22,6 +22,15 @@ class Product {
         $stmt->execute([$id]);
         return $stmt->fetch();
     }
+    public function getQuantityProduct($id) {
+        $stmt = $this->db->prepare("SELECT quantity FROM products WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetchColumn();
+    }
+    public function updateQuantityProduct($id, $quantity) {
+        $stmt = $this->db->prepare("UPDATE products SET quantity = ? WHERE id = ?");
+        return $stmt->execute([$quantity, $id]);
+    }
 
     public function addProduct($name,$description,$category, $price, $discount_price, $quantity, $image) {
         $stmt = $this->db->prepare("INSERT INTO products (name, description, category, price, discount_price, quantity, image) VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -33,4 +42,3 @@ class Product {
         return $stmt->execute([$id]);
     }
 }
-?>
