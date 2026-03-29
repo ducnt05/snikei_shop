@@ -2,10 +2,18 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Models\Cart;
+use App\Models\Cart_item;
 
 class CategoriesController extends Controller {
     public function index() {
-        $this->view('categories');
+        $cartModel = new Cart();
+        $cartItemModel = new Cart_item();
+        
+        $cart = $cartModel->getAllCart();
+        $cartItems = $cartItemModel->getAllCartItems();
+        
+        $this->view('categories', compact('cart', 'cartItems'));
     }
     public function create() {
         $uri = $_SERVER['REQUEST_URI'];
@@ -13,8 +21,14 @@ class CategoriesController extends Controller {
         $category = end($parts);
         
         $productModel = new \App\Models\Product();
+        $cartModel = new Cart();
+        $cartItemModel = new Cart_item();
+        
         $products = $productModel->getProductByCategory($category);
-        $this->view('shop', ['products' => $products]);
+        $cart = $cartModel->getAllCart();
+        $cartItems = $cartItemModel->getAllCartItems();
+        
+        $this->view('shop', compact('products', 'cart', 'cartItems'));
     }
 }
 ?>

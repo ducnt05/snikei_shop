@@ -11,5 +11,9 @@ class Cart_item {
         $stmt = $this->db->query("SELECT * FROM cart_items");
         return $stmt->fetchAll();
     }
+    public function addCartItem($cart_id, $product_id, $quantity, $image, $discount_price) {
+        $stmt = $this->db->prepare("INSERT INTO cart_items (cart_id, product_id, quantity, image, discount_price) VALUES (?, ?, ?, ?, ?)");
+        return $stmt->execute([$cart_id, $product_id, $quantity, $image, $discount_price]);
+    }
 
 }?>

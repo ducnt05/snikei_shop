@@ -62,7 +62,7 @@
 
                         <!-- gửi product_id -->
                         <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
-
+                        <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?? '' ?>">
                         <button type="submit" class="buy">
                             Add to Cart <i class="fa-solid fa-arrow-right-long"></i>
                         </button>

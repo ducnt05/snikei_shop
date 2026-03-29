@@ -3,10 +3,18 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\Contact;
+use App\Models\Cart;
+use App\Models\Cart_item;
 
 class ContactController extends Controller {
     public function index() {
-        $this->view('contact');
+        $cartModel = new Cart();
+        $cartItemModel = new Cart_item();
+        
+        $cart = $cartModel->getAllCart();
+        $cartItems = $cartItemModel->getAllCartItems();
+        
+        $this->view('contact', compact('cart', 'cartItems'));
     }
 
     public function process() {
