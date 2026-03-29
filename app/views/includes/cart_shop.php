@@ -64,7 +64,13 @@
         </p>
     </div>
     <div class="btn-checkout">
-        <button>Checkout</button>
+        <form action="<?= BASE_URL ?>/checkout" method="POST">
+            <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?? 0 ?>">
+            <input type="hidden" name="total_price"
+                value="<?= array_sum(array_map(function($item) { return (float)($item['discount_price'] ?? 0) * (int)($item['quantity'] ?? 0); }, $userCartItems)) ?>">
+            <input type="hidden" name="status" value="processing">
+            <button type="submit">Checkout</button>
+        </form>
     </div>
 </div>
 <div class="overlay"></div>

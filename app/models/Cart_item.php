@@ -15,5 +15,8 @@ class Cart_item {
         $stmt = $this->db->prepare("INSERT INTO cart_items (cart_id, product_id, quantity, image, discount_price) VALUES (?, ?, ?, ?, ?)");
         return $stmt->execute([$cart_id, $product_id, $quantity, $image, $discount_price]);
     }
-
+    public function clearCartItemsByCartId($cart_id) {
+        $stmt = $this->db->prepare("DELETE FROM cart_items WHERE cart_id = ?");
+        return $stmt->execute([$cart_id]);
+    }
 }?>

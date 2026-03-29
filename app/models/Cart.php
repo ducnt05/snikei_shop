@@ -29,6 +29,14 @@ class Cart {
         $result = $stmt->fetch();
         return $result ? $result['id'] : null;
     }
+    public function clearCart($user_id) {
+        $id = $this->getIdCart($user_id);
+        if ($id) {
+            $stmt = $this->db->prepare("DELETE FROM cart WHERE id = ?");
+            return $stmt->execute([$id]);
+        }
+        return false;
+    }
 
 }
 ?>

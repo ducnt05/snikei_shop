@@ -104,6 +104,9 @@ switch ($route) {
     case '/process_addcart':
         (new ShopController())->addToCart();
         break;
+    case '/checkout':
+        (new ShopController())->checkout();
+        break;
     default:
         http_response_code(404);
         echo '404 Not Found';

@@ -5,7 +5,7 @@ use App\Core\Controller;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Cart_item;
-
+use App\Models\Orders;
 class ShopController extends Controller {
     public function index() {
         $productModel = new Product();
@@ -49,6 +49,30 @@ class ShopController extends Controller {
             $cart_id = $cartModel->getIdCart($userId);
             $cartItemModel ->addCartItem($cart_id, $productId, $quantity, $product['image'], $product['discount_price']);
             $this->redirect('/shop');
+        }
+    }
+    public function checkout() {
+        $userId = $_POST['user_id'] ?? null;
+        $totalPrice = $_POST['total_price'] ?? null;
+        $status = $_POST['status'] ?? 'processing';
+
+        if ($userId && $totalPrice) {
+  
+            // Clear the user's cart after checkout
+            $cartModel = new Cart();
+            $cartItemModel = new Cart_item();
+            $ordersModel = new Orders();
+            $ordersModel->createOrder($userId, $totalPrice, $status);
+            $cartId = $cartModel->getIdCart($userId);
+            
+            $cartItemModel->clearCartItemsByCartId($cartId);
+             $cartModel->clearCart($userId);
+
+            // Redirect to a confirmation page or back to the shop
+            $this->redirect('/shop');
+        } else {
+            http_response_code(400);
+            echo 'Invalid checkout data';
         }
     }
 }
