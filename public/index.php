@@ -107,6 +107,9 @@ switch ($route) {
     case '/checkout':
         (new ShopController())->checkout();
         break;
+        case '/logout':
+        (new AuthController())->logout();
+        break;
     default:
         http_response_code(404);
         echo '404 Not Found';
