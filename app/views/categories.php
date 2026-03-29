@@ -50,7 +50,7 @@
                 <span>Oxford</span>
             </div>
             <div class="card">
-                <a href="<?= BASE_URL ?>/category/sports">
+                <a href="<?= BASE_URL ?>/category/sports-shoe">
                     <img src="<?= BASE_URL ?>/assets/images/banners/sports.png" alt="">
                 </a>
                 <span>Sport Shoe</span>

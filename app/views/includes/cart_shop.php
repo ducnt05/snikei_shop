@@ -11,6 +11,8 @@
         $sessionUserId = $_SESSION['user_id'] ?? null;
         $cart = $cart ?? [];
         $cartItems = $cartItems ?? [];
+        $products = $products ?? [];
+        $userCartItems = [];
 
         if ($sessionUserId === null) {
             echo '<p>Please sign in to view your cart.</p>';
@@ -34,7 +36,8 @@
             } else {
                 foreach ($userCartItems as $cartItem) {
                     $image = htmlspecialchars((string)($cartItem['image'] ?? ''), ENT_QUOTES, 'UTF-8');
-                    $productLabel = $products[(int)($cartItem['product_id'] ?? 0)];
+                    $productId = (int)($cartItem['product_id'] ?? 0);
+                    $productLabel = $products[$productId] ?? [];
                     $quantity = (int)($cartItem['quantity'] ?? 0);
                     $price = (float)($cartItem['discount_price'] ?? 0);
                     ?>
