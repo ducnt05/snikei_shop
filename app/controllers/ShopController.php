@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Cart_item;
 use App\Models\Orders;
+use App\Models\OrderItems;
 class ShopController extends Controller {
     public function index() {
         $productModel = new Product();
@@ -56,23 +57,58 @@ class ShopController extends Controller {
         $totalPrice = $_POST['total_price'] ?? null;
         $status = $_POST['status'] ?? 'processing';
 
-        if ($userId && $totalPrice) {
-  
-            // Clear the user's cart after checkout
-            $cartModel = new Cart();
-            $cartItemModel = new Cart_item();
-            $ordersModel = new Orders();
-            $ordersModel->createOrder($userId, $totalPrice, $status);
-            $cartId = $cartModel->getIdCart($userId);
-            
-            $cartItemModel->clearCartItemsByCartId($cartId);
-             $cartModel->clearCart($userId);
-
-            // Redirect to a confirmation page or back to the shop
-            $this->redirect('/shop');
-        } else {
+        if (!$userId || !$totalPrice) {
             http_response_code(400);
             echo 'Invalid checkout data';
+            return;
         }
+
+        $cartModel = new Cart();
+        $cartItemModel = new Cart_item();
+        $ordersModel = new Orders();
+        $orderItemsModel = new OrderItems();
+
+        // Get cart ID for user
+        $cartId = $cartModel->getIdCart($userId);
+        if (!$cartId) {
+            http_response_code(400);
+            echo 'Cart not found for user';
+            return;
+        }
+
+        // Get all cart items once
+        $cartItems = $cartItemModel->getCartItemsByCartId($cartId);
+        if (empty($cartItems)) {
+            http_response_code(400);
+            echo 'Cart is empty';
+            return;
+        }
+
+        // Create order
+        $orders = $ordersModel->createOrder($userId, $totalPrice, $status);
+        $orderId = $ordersModel->getOrdersByUserId($userId);
+        
+        if (!empty($orderId)) {
+            $orderId = $orderId[0]['id'] ?? null;
+            
+            
+            if ($orderId) {
+                foreach ($cartItems as $item) {
+                    $orderItemsModel->createOrderItem(
+                        $orderId,
+                        $item['product_id'] ?? null,
+                        $item['quantity'] ?? 0,
+                        $item['discount_price'] ?? 0
+                    );
+                }
+            }
+        }
+
+        // Clear cart
+        $cartItemModel->clearCartItemsByCartId($cartId);
+        $cartModel->clearCart($userId);
+
+        // Redirect to confirmation page
+        $this->redirect('/shop');
     }
 }

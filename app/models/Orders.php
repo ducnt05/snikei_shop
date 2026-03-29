@@ -12,7 +12,7 @@ class Orders {
         return $stmt->execute([$user_id, $total_price, $status]);
     }
     public function getOrdersByUserId($user_id) {
-        $stmt = $this->db->prepare("SELECT * FROM orders WHERE user_id = ?");
+        $stmt = $this->db->prepare("SELECT * FROM orders WHERE user_id = ? ORDER BY created_at DESC");
         $stmt->execute([$user_id]);
         return $stmt->fetchAll();
     }

@@ -107,7 +107,7 @@ switch ($route) {
     case '/checkout':
         (new ShopController())->checkout();
         break;
-        case '/logout':
+    case '/logout':
         (new AuthController())->logout();
         break;
     default:
