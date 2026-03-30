@@ -40,17 +40,26 @@ class AuthController extends Controller {
             $this->redirect('');
         }
 
-        $this->redirect('login?error=invalid');
+        echo "<script>
+        alert('Invalid email or password');
+        window.location.href = 'login';
+        </script>";
+        exit;
     }
     public function logout() {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-
         session_unset();
         session_destroy();
+        echo "<script>
+        alert('Logged out successfully');
+        window.location.href = 'login';
+        </script>";
+        exit;
+        
 
-        $this->redirect('');
+     
     }
 }
 ?>
