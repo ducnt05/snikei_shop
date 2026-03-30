@@ -7,6 +7,8 @@ use App\Models\Cart;
 use App\Models\Cart_item;
 use App\Models\Orders;
 use App\Models\OrderItems;
+use App\Models\Reviews;
+use App\Models\User;
 class ShopController extends Controller {
     public function index() {
         $productModel = new Product();
@@ -28,6 +30,10 @@ class ShopController extends Controller {
         $cartItemModel = new Cart_item();
         $cart = $cartModel->getAllCart();
         $cartItems = $cartItemModel->getAllCartItems();
+        $reviewsModel = new Reviews();
+        $reviews = $reviewsModel->getReviewsByProductId($id);
+        $userModel = new User();
+        $user = $userModel->getAllUsers();
         if (!$product) {
             http_response_code(404);
             echo 'Product not found';
@@ -35,7 +41,7 @@ class ShopController extends Controller {
         }
         
 
-        $this->view('product_detail', compact('product', 'similarProduct', 'cart', 'cartItems'));
+        $this->view('product_detail', compact('product', 'similarProduct', 'cart', 'cartItems', 'reviews', 'user'));
     }
     public function addToCart() {
         $productModel = new Product();
@@ -118,5 +124,23 @@ class ShopController extends Controller {
 
         // Redirect to confirmation page
         $this->redirect('/shop');
+    }
+    public function addReview() {
+        $userId = $_POST['user_id'] ?? null;
+        $productId = $_POST['product_id'] ?? null;
+        $rating = $_POST['rating'] ?? null;
+        $comment = $_POST['comment'] ?? null;
+       
+        if (!$userId || !$productId || !$rating) {
+            http_response_code(400);
+            echo 'Invalid review data';
+            return;
+        }
+        $reviewModel = new Reviews();
+        $reviewModel->addReview($userId, $productId, $rating, $comment);
+        // Here you would typically save the review to the database
+        // For this example, we'll just redirect back to the product page
+
+        $this->redirect('/shop?id=' . $productId);
     }
 }

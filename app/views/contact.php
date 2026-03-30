@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snikei - Contact</title>
+    <title>Snikei Shop | Contact</title>
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_main/style_contact.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_main/style_header.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_main/style_footer.css">

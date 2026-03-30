@@ -103,48 +103,47 @@ body {
   background-color: #333;
 }
 .product-right .more-info h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    font-family: cursive;
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-family: cursive;
 }
 .product-right .more-info ul {
-   margin-left: 30px;
-   font-family: cursive;
+  margin-left: 30px;
+  font-family: cursive;
 }
 .product-overview {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    margin: 90px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin: 90px 0;
 }
 .product-overview h2 {
-    font-size: 40px;
-    font-family: Arial, Helvetica, sans-serif;
+  font-size: 40px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .product-overview p {
-    font-size: 18px;
+  font-size: 18px;
 }
 .product-overview ul {
-   font-size: 18px;
-   font-weight: bold;
-   margin-left: 50px;
-   display: flex;
-   flex-direction: column;
-   gap: 10px;
-   font-family: cursive;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: cursive;
 }
-.container .similar-product{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 100px 0;
-    
+.container .similar-product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 100px 0;
 }
 .similar-product h2 {
-    font-size: 50px;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-bottom: 50px;
-    text-align: center;
+  font-size: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 50px;
+  text-align: center;
 }
 .container .product {
   display: flex;
@@ -175,4 +174,125 @@ body {
 }
 .product-card img:hover {
   transform: scale(1.1);
+}
+.product-review {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.product-review h2 {
+  font-size: 40px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.product-review .form-review {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.rating input {
+  display: none;
+}
+
+.form-review .star {
+  width: 20px;
+  height: 20px;
+  background-image: url("https://cdn.prod.website-files.com/6890fbf29f28b7089b169c21/68a07e9e478c76ab436809ab_star-fill%20(1).svg");
+  background-size: cover;
+  filter: grayscale(100%);
+  cursor: pointer;
+}
+
+.form-review .star:hover,
+.form-review .star:hover ~ .star {
+  filter: grayscale(0%);
+}
+
+.form-review .rating input:checked ~ .star {
+  filter: grayscale(0%);
+}
+.form-review {
+  display: flex;
+  flex-direction: column;
+  margin-left: 25px;
+  
+}
+.form-review h3 {
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 10px;
+}
+.input-comment {
+  padding: 10px;
+  padding-top: 20px;
+  padding-bottom: 200px;
+  width: 1000px;
+  
+  border: 1px solid rgb(2, 16, 40);
+  border-radius: 10px;
+  outline: none;
+}
+.input-comment:focus {
+  border-color: rgb(138, 168, 225);
+  
+}
+.btn-review {
+  display: flex;
+  
+  margin-top: 10px;
+}
+.btn-review button {
+ width: 150px;
+  padding: 13px 20px;
+  border: none;
+  background-color: black;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  text-align: center;
+  border-radius: 10px;
+}
+.btn-review button:hover {
+  background-color: #333;
+}
+.review {
+  display: flex;
+  flex-direction: column;
+
+  padding-bottom: 50px;
+  border-bottom: 1px solid #ccc;
+}
+.name-user {
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.name-user img {
+  
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.review h4 {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.review p {
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: 20px;
+}
+.form-review p {
+  font-size: 18px;
+  font-family: cursive;
 }

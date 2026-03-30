@@ -116,6 +116,9 @@ switch ($route) {
     case '/admin/overview':
         (new AdminController())->overview();
         break;
+    case '/process_add_review':
+        (new ShopController())->addReview();
+        break;
     default:
         http_response_code(404);
         echo '404 Not Found';
