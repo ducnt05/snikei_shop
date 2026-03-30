@@ -50,15 +50,17 @@
                 <span class="description"><?php echo $product["description"]; ?></span>
                 <span class="category"><?php echo $product["category"]; ?></span>
                 <span class="price">$<?php echo number_format($product["price"], 0, ",", "."); ?></span>
-                <span class="discount-price">$<?php echo number_format($product["discount_price"], 0, ",", "."); ?></span>
+                <span
+                    class="discount-price">$<?php echo number_format($product["discount_price"], 0, ",", "."); ?></span>
                 <span class="quantity"><?php echo $product["quantity"]; ?></span>
                 <span class="action">
                     <a href="<?= BASE_URL ?>/admin/edit_product?id=<?php echo $product["id"]; ?>">Edit</a>
-                    <a href="<?= BASE_URL ?>/admin/delete_product?id=<?php echo $product["id"]; ?>">Delete</a>
+                    <a href="<?= BASE_URL ?>/admin/delete_product?id=<?php echo $product["id"]; ?>"
+                        onclick="return confirm('Are you sure you want to delete this product?')">Delete</a>
                 </span>
             </div>
             <?php endforeach; ?>
-            <div class="add-product">
+            <div class=" add-product">
                 <a href="<?= BASE_URL ?>/admin/product_add"><button class="btn-add">Add product</button></a>
             </div>
         </div>

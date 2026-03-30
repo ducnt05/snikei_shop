@@ -16,6 +16,9 @@ class Orders {
         $stmt->execute([$user_id]);
         return $stmt->fetchAll();
     }
-
+    public function getAllOrders() {
+        $stmt = $this->db->query("SELECT * FROM orders ORDER BY created_at DESC");
+        return $stmt->fetchAll();
+    }
 }
 ?>

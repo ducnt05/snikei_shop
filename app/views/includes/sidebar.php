@@ -16,7 +16,7 @@
             </a>
 
             <ul class="submenu">
-                <li><a href="#">Overview</a></li>
+                <li><a href="<?= BASE_URL ?>/admin/overview">Overview</a></li>
                 <li><a href="#">Add Transaction</a></li>
             </ul>
         </li>

@@ -55,7 +55,7 @@ class ShopController extends Controller {
     public function checkout() {
         $userId = $_POST['user_id'] ?? null;
         $totalPrice = $_POST['total_price'] ?? null;
-        $status = $_POST['status'] ?? 'processing';
+        $status = $_POST['status'] ?? null;
 
         if (!$userId || !$totalPrice) {
             http_response_code(400);

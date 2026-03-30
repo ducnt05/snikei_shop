@@ -110,6 +110,12 @@ switch ($route) {
     case '/logout':
         (new AuthController())->logout();
         break;
+    case '/admin/edit_product':
+        (new AdminController())->editProduct((int)($_GET['id'] ?? 0));
+        break;
+    case '/admin/overview':
+        (new AdminController())->overview();
+        break;
     default:
         http_response_code(404);
         echo '404 Not Found';

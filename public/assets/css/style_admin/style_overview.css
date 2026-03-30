@@ -69,6 +69,10 @@ body {
   color: rgb(0, 67, 250);
 }
 
+.dark-mode {
+  background: #031022;
+}
+
 .content {
   display: flex;
   flex-direction: column;
@@ -176,6 +180,36 @@ body {
   letter-spacing: 0.4px;
 }
 
+.content-table .id {
+  width: 5%;
+}
+
+.content-table .name {
+  width: 22%;
+}
+
+.content-table .created_at {
+  width: 17%;
+}
+
+.content-table .updated_at {
+  width: 17%;
+}
+
+.content-table .total {
+  width: 14%;
+}
+
+.content-table .status {
+  width: 13%;
+}
+
+.content-table .action {
+  width: 12%;
+  display: flex;
+  gap: 20px;
+}
+
 .table-row {
   display: flex;
   flex-direction: row;
@@ -190,42 +224,6 @@ body {
   background-color: rgb(247, 251, 254);
 }
 
-.content-table .id {
-  width: 10%;
-}
-
-.content-table .name {
-  width: 24%;
-}
-
-.content-table .email {
-  width: 36%;
-}
-
-.content-table .role {
-  width: 15%;
-}
-
-.role-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 70px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background-color: rgb(231, 241, 255);
-  color: rgb(2, 58, 173);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.content-table .action {
-  width: 15%;
-  display: flex;
-  gap: 20px;
-}
-
 .table-row a {
   text-decoration: none;
   color: rgb(1, 22, 78);
@@ -234,6 +232,20 @@ body {
 
 .table-row a:hover {
   color: rgb(0, 67, 250);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background-color: rgb(231, 241, 255);
+  color: rgb(2, 58, 173);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .table-empty {
@@ -257,11 +269,12 @@ body {
   }
 
   .content-table .name {
-    width: 22%;
+    width: 20%;
   }
 
-  .content-table .email {
-    width: 33%;
+  .content-table .created_at,
+  .content-table .updated_at {
+    width: 18%;
   }
 }
 
@@ -290,30 +303,22 @@ body {
   }
 
   .content-table .id {
-    width: 8%;
+    width: 6%;
   }
 
   .content-table .name {
-    width: 24%;
+    width: 20%;
   }
 
-  .content-table .email {
-    width: 34%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .content-table .created_at,
+  .content-table .updated_at {
+    width: 20%;
   }
 
-  .content-table .role {
-    width: 17%;
-  }
-
+  .content-table .total,
+  .content-table .status,
   .content-table .action {
-    width: 17%;
-    gap: 12px;
+    width: 11%;
   }
 }
 
-.dark-mode {
-  background: #031022;
-}

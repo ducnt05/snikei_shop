@@ -5,6 +5,8 @@ use App\Core\Controller;
 use App\Models\Contact;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Orders;
+
 
 class AdminController extends Controller {
     public function dashboard() {
@@ -81,6 +83,30 @@ class AdminController extends Controller {
         $contactModel = new Contact();
         $messages = $contactModel->getAllMessages();
         $this->view('admin/message', compact('messages'));
+    }
+    public function editProduct($id) {
+        $this->requireAdmin();
+
+        $id = (int) $id;
+        if ($id <= 0) {
+            $this->redirect('admin/products?error=1');
+        }
+
+        $productModel = new Product();
+        $product = $productModel->getProductById($id);
+        if (!$product) {
+            $this->redirect('admin/products?error=1');
+        }
+
+        $this->view('admin/product_edit', compact('product'));
+    }
+    public function overview() {
+        $userModel = new User();
+        $orderModel = new Orders();  
+        $user = $userModel->getAllUsers();
+        $orders = $orderModel->getAllOrders();
+        $this->requireAdmin();
+        $this->view('admin/overview', compact('user', 'orders'));
     }
 }
 ?>

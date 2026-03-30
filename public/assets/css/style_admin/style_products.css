@@ -85,6 +85,7 @@ span {
 }
 .id {
   width: 2%;
+  
 }
 .image {
   width: 15%;
@@ -97,6 +98,7 @@ span {
 }
 .category {
   width: 8%;
+
 }
 .price {
   width: 10%;
@@ -109,7 +111,12 @@ span {
 }
 .action {
   width: 10%;
-  gap: 3px;
+  gap: 10px;
+}
+.action a {
+  text-decoration: none;
+  color: rgb(0, 67, 250);
+  text-decoration: underline;
 }
 .btn-add {
   display: flex;
@@ -120,6 +127,10 @@ span {
 }
 .add-product {
   margin-top: 5%;
+}
+.add-product a {
+  text-decoration: none;
+  
 }
 .btn-add:hover {
   background-color: white;
