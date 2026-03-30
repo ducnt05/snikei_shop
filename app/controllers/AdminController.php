@@ -34,7 +34,7 @@ class AdminController extends Controller {
             $stats['revenue'] += (float) ($order['total_price'] ?? 0);
         }
 
-        $latestOrders = array_slice($orders, 0, 5);
+        $latestOrders = array_slice($orders, 0, $stats['orders']);
 
         $userNamesById = [];
         foreach ($users as $user) {

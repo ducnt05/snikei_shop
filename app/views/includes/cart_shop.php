@@ -12,7 +12,15 @@
         $cart = $cart ?? [];
         $cartItems = $cartItems ?? [];
         $products = $products ?? [];
+        $productsById = [];
         $userCartItems = [];
+
+        foreach ($products as $productRow) {
+            $id = (int)($productRow['id'] ?? 0);
+            if ($id > 0) {
+                $productsById[$id] = $productRow;
+            }
+        }
 
         if ($sessionUserId === null) {
             echo '<p>Please sign in to view your cart.</p>';
@@ -37,7 +45,7 @@
                 foreach ($userCartItems as $cartItem) {
                     $image = htmlspecialchars((string)($cartItem['image'] ?? ''), ENT_QUOTES, 'UTF-8');
                     $productId = (int)($cartItem['product_id'] ?? 0);
-                    $productLabel = $products[$productId] ?? [];
+                    $productLabel = $productsById[$productId] ?? [];
                     $quantity = (int)($cartItem['quantity'] ?? 0);
                     $price = (float)($cartItem['discount_price'] ?? 0);
                     ?>
@@ -49,6 +57,7 @@
                 <h3><?= $productLabel['name'] ?? 'Unknown Product' ?></h3>
                 <p>Quantity: <?= $quantity ?></p>
                 <p>Price: $<?= number_format($price, 0, ',', '.') ?></p>
+                <a class="btn-remove" href="">Remove</a>
             </div>
         </div>
         <?php
@@ -57,20 +66,23 @@
         }
         ?>
     </div>
-    <div class="cart-total">
-        <p>Subtotal</p>
-        <p>Total:
-            $<?= number_format(array_sum(array_map(function($item) { return (float)($item['discount_price'] ?? 0) * (int)($item['quantity'] ?? 0); }, $userCartItems)), 0, ',', '.') ?>
-        </p>
-    </div>
-    <div class="btn-checkout">
-        <form action="<?= BASE_URL ?>/checkout" method="POST">
-            <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?? 0 ?>">
-            <input type="hidden" name="total_price"
-                value="<?= array_sum(array_map(function($item) { return (float)($item['discount_price'] ?? 0) * (int)($item['quantity'] ?? 0); }, $userCartItems)) ?>">
-            <input type="hidden" name="status" value="processing">
-            <button type="submit">Checkout</button>
-        </form>
+
+    <div class="cart-footer">
+        <div class="cart-total">
+            <p>Subtotal</p>
+            <p>Total:
+                $<?= number_format(array_sum(array_map(function($item) { return (float)($item['discount_price'] ?? 0) * (int)($item['quantity'] ?? 0); }, $userCartItems)), 0, ',', '.') ?>
+            </p>
+        </div>
+        <div class="btn-checkout">
+            <form action="<?= BASE_URL ?>/checkout" method="POST">
+                <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?? 0 ?>">
+                <input type="hidden" name="total_price"
+                    value="<?= array_sum(array_map(function($item) { return (float)($item['discount_price'] ?? 0) * (int)($item['quantity'] ?? 0); }, $userCartItems)) ?>">
+                <input type="hidden" name="status" value="processing">
+                <button type="submit">Checkout</button>
+            </form>
+        </div>
     </div>
 </div>
 <div class="overlay"></div>

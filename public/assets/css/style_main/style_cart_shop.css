@@ -51,8 +51,8 @@
 .cart-products {
   display: flex;
   flex-direction: column;
-  height: 200px;
-  overflow: scroll;
+  
+
 }
 .cart-product-item {
   display: flex;
@@ -81,8 +81,8 @@
   margin-bottom: 5px;
 }
 .cart-total {
+  
   font-family: Arial, Helvetica, sans-serif;
-
   font-size: 20px;
   margin: 20px 0;
   display: flex;
@@ -91,14 +91,11 @@
 
 .btn-checkout {
   
-  
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .btn-checkout button {
-  
-  
   background-color: #000000;
   color: white;
   border: none;
@@ -111,4 +108,27 @@
 .btn-checkout button:hover {
   background-color: #333333;
   width: 300px;
+}
+.btn-remove {
+  text-decoration: none;
+  color: red;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.cart-footer {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  z-index: 10;
+  border-top: 1px solid #ccc;
+}
+
+.cart-total {
+  padding: 10px;
+}
+
+.btn-checkout {
+  padding: 10px;
 }
