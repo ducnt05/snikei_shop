@@ -126,12 +126,12 @@ body {
 }
 .product-overview ul {
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 500;
   margin-left: 50px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  font-family: cursive;
+  font-family: 'Times New Roman', Times, serif;
 }
 .container .similar-product {
   display: flex;
@@ -295,4 +295,9 @@ body {
 .form-review p {
   font-size: 18px;
   font-family: cursive;
+}
+.features {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 100px;
 }

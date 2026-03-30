@@ -103,7 +103,37 @@
                 <li>Premium craftsmanship with durable stitching and finishes</li>
             </ul>
         </div>
-
+        <section class="features">
+            <div class="feature-item">
+                <div class="feature-icon"><img
+                        src="<?= BASE_URL ?>/assets/images/icons/6892144f750bf17c33b635e7_recycling-reproducing-svgrepo-com 1.svg"
+                        alt=""></div>
+                <h3 class="feature-title">Sustainable Materials</h3>
+                <p class="feature-text">We believe great style shouldn’t come at the planet’s expense.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><img
+                        src="<?= BASE_URL ?>/assets/images/icons/689214509e45233c0eac2f63_warranty-svgrepo-com 1.svg"
+                        alt=""></div>
+                <h3 class="feature-title">Warranty Included</h3>
+                <p class="feature-text">Every pair comes with a hassle-free 6-month warranty</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><img
+                        src="<?= BASE_URL ?>/assets/images/icons/68921450b524ed88c4868689_delivery-fast-svgrepo.svg"
+                        alt="">
+                </div>
+                <h3 class="feature-title">Delivery & Shipping</h3>
+                <p class="feature-text">Your shoes will be dispatched within 1–2 business days</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><img
+                        src="<?= BASE_URL ?>/assets/images/icons/6892144f566712d4d864a312_eco-friendly-svgrepo-com 1.svg"
+                        alt=""></div>
+                <h3 class="feature-title">Eco-Friendly Fabrics</h3>
+                <p class="feature-text">Crafted with sustainability in mind, our shoes feature eco-friendly fabrics</p>
+            </div>
+        </section>
         <div class="product-review">
             <h2>Product Reviews</h2>
             <!-- Review content will be displayed here -->
@@ -115,7 +145,7 @@
             <?php foreach ($reviews as $review): ?>
             <div class="review">
                 <div class="name-user"><img
-                        src="https://png.pngtree.com/png-clipart/20250117/original/pngtree-account-avatar-user-abstract-circle-background-flat-color-icon-png-image_4965046.png"
+                        src="https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg"
                         alt="User Avatar" width="50px">
                     <h4><?= htmlspecialchars($userNameById[(int) ($review['user_id'] ?? 0)] ?? 'Unknown User', ENT_QUOTES, 'UTF-8') ?>
                     </h4>
@@ -155,7 +185,7 @@
                         <input type="radio" id="star1" name="rating" value="1">
                         <label for="star1" class="star"></label>
                     </div>
-                    <input class="input-comment" type="text" name="comment" placeholder="Write your review here...">
+                    <textarea class="input-comment" name="comment" placeholder="Write your review here..."></textarea>
                     <div class="btn-review">
                         <button type="submit">Submit Review</button>
                     </div>
