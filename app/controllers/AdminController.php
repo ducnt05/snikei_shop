@@ -11,7 +11,69 @@ use App\Models\Orders;
 class AdminController extends Controller {
     public function dashboard() {
         $this->requireAdmin();
-        $this->view('admin/dashboard');
+
+        $userModel = new User();
+        $productModel = new Product();
+        $orderModel = new Orders();
+        $contactModel = new Contact();
+
+        $users = $userModel->getAllUsers();
+        $products = $productModel->getAllProducts();
+        $orders = $orderModel->getAllOrders();
+        $messages = $contactModel->getAllMessages();
+
+        $stats = [
+            'users' => count($users),
+            'products' => count($products),
+            'orders' => count($orders),
+            'messages' => count($messages),
+            'revenue' => 0,
+        ];
+
+        foreach ($orders as $order) {
+            $stats['revenue'] += (float) ($order['total_price'] ?? 0);
+        }
+
+        $latestOrders = array_slice($orders, 0, 5);
+
+        $userNamesById = [];
+        foreach ($users as $user) {
+            $userNamesById[(int) $user['id']] = $user['name'] ?? 'Unknown';
+        }
+
+        $monthlyRevenue = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $key = date('Y-m', strtotime("-{$i} months"));
+            $monthlyRevenue[$key] = 0;
+        }
+
+        foreach ($orders as $order) {
+            if (empty($order['created_at'])) {
+                continue;
+            }
+
+            $monthKey = date('Y-m', strtotime($order['created_at']));
+            if (!array_key_exists($monthKey, $monthlyRevenue)) {
+                continue;
+            }
+
+            $monthlyRevenue[$monthKey] += (float) ($order['total_price'] ?? 0);
+        }
+
+        $monthlyChart = [];
+        $monthlyMax = 1;
+        foreach ($monthlyRevenue as $monthKey => $total) {
+            if ($total > $monthlyMax) {
+                $monthlyMax = $total;
+            }
+
+            $monthlyChart[] = [
+                'label' => date('m/Y', strtotime($monthKey . '-01')),
+                'total' => $total,
+            ];
+        }
+
+        $this->view('admin/dashboard', compact('stats', 'latestOrders', 'userNamesById', 'monthlyChart', 'monthlyMax'));
     }
 
     public function products() {
