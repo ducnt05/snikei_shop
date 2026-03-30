@@ -22,7 +22,9 @@
             <span>Email:</span>
             <input type="email" name="email" placeholder="Enter your email">
             <span>Password</span>
-            <input type="password" name="password" placeholder="Enter your password">
+            <input id="password" type="password" name="password" placeholder="Enter your password">
+            <input id="show-password" type="checkbox" onclick="password.type= this.checked ? 'text' : 'password'">
+            <label class="form-check-label" for="show-password">Show Password ?</label>
             <button>Sign In</button>
             <p>Don't have an account? <a href="<?= BASE_URL ?>/register">Sign up</a></p>
         </form>

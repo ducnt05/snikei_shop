@@ -152,7 +152,7 @@
                 </div>
 
                 <div class="rating">
-                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                    <?php for ($i = 1; $i <= $review['rating']; $i++): ?>
                     <span class="star <?= $i <= $review['rating'] ? 'filled' : '' ?>"><img
                             src="https://cdn.prod.website-files.com/6890fbf29f28b7089b169c21/68a07e9e478c76ab436809ab_star-fill%20(1).svg"
                             loading="lazy" width="20" alt=""></span>

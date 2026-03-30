@@ -34,17 +34,27 @@ class AuthController extends Controller {
             $_SESSION['role'] = $user['role'];
 
             if ($user['role'] === 'admin') {
-                $this->redirect('admin/dashboard');
+                echo "<script>
+                alert('Login successful! Welcome, Admin.');
+                window.location.href = 'admin/dashboard';   
+                </script>";
+                exit;
+               
+            } if ($user['role'] === 'user') {
+                echo "<script>
+                alert('Login successful! Welcome, " . htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8') . "');
+                window.location.href = 'shop';
+                </script>";
+                exit;
             }
-
-            $this->redirect('');
-        }
+            
 
         echo "<script>
         alert('Invalid email or password');
         window.location.href = 'login';
         </script>";
         exit;
+        }
     }
     public function logout() {
         if (session_status() === PHP_SESSION_NONE) {

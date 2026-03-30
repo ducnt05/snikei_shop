@@ -62,3 +62,18 @@ form p {
   flex-direction: row;
   justify-content: space-between;
 }
+#show-password {
+display: none;
+}
+.form-check-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 15px;
+  color: #000000;
+  padding-right: 350px;
+  cursor: pointer;
+}
+.form-check-label:hover {
+  color: rgb(0, 64, 255);
+}
