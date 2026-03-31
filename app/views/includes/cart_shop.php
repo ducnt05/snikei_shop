@@ -46,6 +46,7 @@
                     $image = htmlspecialchars((string)($cartItem['image'] ?? ''), ENT_QUOTES, 'UTF-8');
                     $productId = (int)($cartItem['product_id'] ?? 0);
                     $productLabel = $productsById[$productId] ?? [];
+                    $productName = (string)($cartItem['product_name'] ?? ($productLabel['name'] ?? 'Unknown Product'));
                     $quantity = (int)($cartItem['quantity'] ?? 0);
                     $price = (float)($cartItem['discount_price'] ?? 0);
                     ?>
@@ -54,7 +55,7 @@
                 <img src="<?= BASE_URL ?>/uploads/<?= $image ?>" alt="" width="150px">
             </div>
             <div class="cart-product-right">
-                <h3><?= $productLabel['name'] ?? 'Unknown Product' ?></h3>
+                <h3><?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?></h3>
                 <p>Quantity: <?= $quantity ?></p>
                 <p>Price: $<?= number_format($price, 0, ',', '.') ?></p>
                 <a class="btn-remove" href="">Remove</a>

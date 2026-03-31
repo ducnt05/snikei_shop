@@ -8,7 +8,7 @@ class Cart_item {
         $this->db = Database::getInstance()->getConnection();
     }
     public function getAllCartItems() {
-        $stmt = $this->db->query("SELECT * FROM cart_items");
+        $stmt = $this->db->query("SELECT ci.*, p.name AS product_name FROM cart_items ci LEFT JOIN products p ON p.id = ci.product_id");
         return $stmt->fetchAll();
     }
     public function addCartItem($cart_id, $product_id, $quantity, $image, $discount_price) {
@@ -16,7 +16,7 @@ class Cart_item {
         return $stmt->execute([$cart_id, $product_id, $quantity, $image, $discount_price]);
     }
     public function getCartItemsByCartId($cart_id) {
-        $stmt = $this->db->prepare("SELECT * FROM cart_items WHERE cart_id = ?");
+        $stmt = $this->db->prepare("SELECT ci.*, p.name AS product_name FROM cart_items ci LEFT JOIN products p ON p.id = ci.product_id WHERE ci.cart_id = ?");
         $stmt->execute([$cart_id]);
         return $stmt->fetchAll();
     }
