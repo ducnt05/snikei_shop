@@ -81,7 +81,7 @@
                 <input type="hidden" name="total_price"
                     value="<?= array_sum(array_map(function($item) { return (float)($item['discount_price'] ?? 0) * (int)($item['quantity'] ?? 0); }, $userCartItems)) ?>">
                 <input type="hidden" name="status" value="processing">
-                <button type="submit">Checkout</button>
+                <button type="submit" onclick="return confirm('Are you sure you want to checkout?')">Checkout</button>
             </form>
         </div>
     </div>
