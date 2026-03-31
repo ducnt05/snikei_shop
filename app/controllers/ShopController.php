@@ -49,13 +49,16 @@ class ShopController extends Controller {
         $productId = $_POST['product_id'] ?? null;
         $product = $productModel->getProductById($productId);
         $quantity = $_POST['quantity'] ?? 1;
-        if ($productId) {
+        if ($productId && $userId) {
             $cartModel = new Cart();
             $cartItemModel = new Cart_item();
             $cartModel->addCart($userId);
             $cart_id = $cartModel->getIdCart($userId);
             $cartItemModel ->addCartItem($cart_id, $productId, $quantity, $product['image'], $product['discount_price']);
             $this->redirect('/shop');
+        } else {
+            http_response_code(400);
+            echo 'Invalid product or user';
         }
     }
     public function checkout() {
