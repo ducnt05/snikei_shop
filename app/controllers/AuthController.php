@@ -47,14 +47,14 @@ class AuthController extends Controller {
                 </script>";
                 exit;
             }
-            
+        }
 
         echo "<script>
         alert('Invalid email or password');
         window.location.href = 'login';
         </script>";
         exit;
-        }
+        
     }
     public function logout() {
         if (session_status() === PHP_SESSION_NONE) {
