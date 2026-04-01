@@ -13,7 +13,9 @@
     <div class="header-actions">
         <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
         <a class="btn-cartshop"><i class="fa-solid fa-cart-shopping"></i></a>
+        <?php if (!isset($_SESSION['user_id'])): ?>
         <a href="<?= BASE_URL ?>/login"><i class="fa-solid fa-user"></i></a>
+        <?php endif; ?>
         <?php if (isset($_SESSION['user_id'])): ?>
         <a href="<?= BASE_URL ?>/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
         <?php endif; ?>
