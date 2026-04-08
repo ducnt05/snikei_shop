@@ -1,40 +1,35 @@
-<footer>
-    <div>
-        <h3>Navigation</h3>
-        <a href="">Home</a>
-        <a href="">About Us</a>
-
-        <a href="">Categories</a>
-        <a href="">Shop</a>
-        <a href="">Articles</a>
-        <a href="">Contact</a>
-
-
+<?php $year = date('Y'); ?>
+<footer class="site-footer">
+    <div class="footer-brand">
+        <h3>SNIKEI</h3>
+        <p>Curated footwear with a cleaner shopping experience, faster support, and simpler choices.</p>
     </div>
-    <div>
-        <h3>Categories</h3>
-        <a href="">Sneakers</a>
-        <a href="">Boots</a>
-        <a href="">Formal</a>
-        <a href="">Running</a>
-        <a href="">Oxford</a>
-        <a href="">Sports Shoe</a>
-    </div>
-    <div>
-        <h3>Utility Pages</h3>
-        <a href="">Style Guide</a>
-        <a href="">Licences</a>
-        <a href="">Changelog</a>
-        <a href="">Password Protected</a>
-        <a href="">404 page</a>
-    </div>
-    <div>
-        <h3>Our Locations</h3>
-        <a href="">NJ Store Location</a>
-        <a href="">56757 Dream Avenue,Garden City, 234564 New Jersey, USA</a>
-        <a href="">snikei@gmail.com</a>
-        <a href="">(345) 123 456 5368</a>
 
+    <div class="footer-column">
+        <h4>Navigation</h4>
+        <a href="<?= BASE_URL ?>">Home</a>
+        <a href="<?= BASE_URL ?>/about">About</a>
+        <a href="<?= BASE_URL ?>/categories">Categories</a>
+        <a href="<?= BASE_URL ?>/shop">Shop</a>
+        <a href="<?= BASE_URL ?>/blog">Blog</a>
+        <a href="<?= BASE_URL ?>/contact">Contact</a>
+    </div>
 
+    <div class="footer-column">
+        <h4>Categories</h4>
+        <a href="<?= BASE_URL ?>/categories">Sneakers</a>
+        <a href="<?= BASE_URL ?>/categories">Boots</a>
+        <a href="<?= BASE_URL ?>/categories">Formal</a>
+        <a href="<?= BASE_URL ?>/categories">Running</a>
+        <a href="<?= BASE_URL ?>/categories">Oxford</a>
+        <a href="<?= BASE_URL ?>/categories">Sports Shoe</a>
+    </div>
+
+    <div class="footer-column footer-contact">
+        <h4>Contact</h4>
+        <p>56757 Dream Avenue, Garden City, New Jersey, USA</p>
+        <a href="mailto:snikei@gmail.com">snikei@gmail.com</a>
+        <a href="tel:+13451234568">(345) 123 456 5368</a>
+        <span class="footer-copy">&copy; <?= $year ?> SNIKEI. All rights reserved.</span>
     </div>
 </footer>

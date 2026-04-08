@@ -122,6 +122,9 @@ switch ($route) {
     case '/profile':
         (new AuthController())->profile();
         break;
+    case '/process_add_profile':
+        (new AuthController())->processAddProfile();
+        break;
     default:
         http_response_code(404);
         echo '404 Not Found';

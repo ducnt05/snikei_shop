@@ -15,28 +15,100 @@
 <body>
     <?php include("includes/header.php"); ?>
     <?php include("includes/cart_shop.php"); ?>
-    <div class="container">
-        <div class="heading">
-            <h1>Contact Now</h1>
-        </div>
-        <div class="form-contact">
-            <div class="form-left">
-                <form action="<?= BASE_URL ?>/process_contact" method="post">
-                    <h2>Send a line about your project</h2>
-                    <label for="name">Name</label>
-                    <input type="text" name="name" placeholder="Enter your name">
-                    <label for="email">Email Address</label>
-                    <input type="email" name="email" placeholder="Enter your email">
-                    <label for="message">Your Message</label>
-                    <input type="text" name="message" placeholder="Enter your message">
-                    <button type="submit">Send now <i class="fa-solid fa-arrow-right"></i></button>
-                </form>
+    <?php $e = fn($value) => htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); ?>
+    <main class="contact-page">
+        <section class="contact-hero">
+            <div class="container">
+                <span class="eyebrow">Contact</span>
+                <h1>Let’s talk about products, orders, or anything else.</h1>
+                <p>We usually reply within one business day. Use the form below or reach us through the direct contact details.</p>
             </div>
-            <div class="form-right">
-                <img src="https://cdn.prod.website-files.com/6890fbf29f28b7089b169c21/68a203981ddc2dc9b5f33b8d_Rectangle%2053.png" alt="">
+        </section>
+
+        <section class="contact-section">
+            <div class="container contact-grid">
+                <div class="contact-panel contact-info-panel">
+                    <div class="section-head compact left-align">
+                        <div>
+                            <span class="eyebrow">Reach us</span>
+                            <h2>Direct contact details</h2>
+                        </div>
+                        <p>Choose the fastest channel and we will route your message to the right person.</p>
+                    </div>
+
+                    <div class="info-card-list">
+                        <?php foreach ($contactInfo as $item): ?>
+                            <div class="info-card">
+                                <div class="info-icon">
+                                    <i class="fa-solid <?= $e($item['icon']) ?>"></i>
+                                </div>
+                                <div>
+                                    <h3><?= $e($item['title']) ?></h3>
+                                    <p><?= $e($item['text']) ?></p>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <div class="hours-card">
+                        <h3>Working hours</h3>
+                        <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+                        <p>Saturday: 9:00 AM - 2:00 PM</p>
+                        <p>Sunday: Closed</p>
+                    </div>
+                </div>
+
+                <div class="contact-panel contact-form-panel">
+                    <div class="section-head compact left-align">
+                        <div>
+                            <span class="eyebrow">Send a message</span>
+                            <h2>Tell us what you need</h2>
+                        </div>
+                    </div>
+
+                    <?php if (($status ?? null) === 'success'): ?>
+                        <div class="alert alert-success">Your message has been sent successfully.</div>
+                    <?php elseif (($status ?? null) === 'error'): ?>
+                        <div class="alert alert-error">Something went wrong. Please try again.</div>
+                    <?php endif; ?>
+
+                    <form class="contact-form" action="<?= BASE_URL ?>/process_contact" method="post">
+                        <div class="field-grid">
+                            <div class="form-field">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-field full-width">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Tell us about your question or request" rows="6" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary">Send Message <i class="fa-solid fa-arrow-right"></i></button>
+                    </form>
+                </div>
             </div>
-        </div>
-    </div>
+        </section>
+
+        <section class="contact-section contact-map-section">
+            <div class="container contact-map-card">
+                <div>
+                    <span class="eyebrow">Location</span>
+                    <h2>Find us in Garden City</h2>
+                    <p>We are available for product questions, bulk inquiries, and support-related follow-up.</p>
+                </div>
+                <div class="map-placeholder">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Store and support hub</span>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <?php include("includes/footer.php"); ?>
     <script src="<?= BASE_URL ?>/assets/js/main.js"></script>

@@ -13,8 +13,33 @@ class ContactController extends Controller {
         
         $cart = $cartModel->getAllCart();
         $cartItems = $cartItemModel->getAllCartItems();
+
+        $contactInfo = [
+            [
+                'icon' => 'fa-location-dot',
+                'title' => 'Visit us',
+                'text' => '56757 Dream Avenue, Garden City, New Jersey, USA'
+            ],
+            [
+                'icon' => 'fa-envelope',
+                'title' => 'Email',
+                'text' => 'support@snikei.com'
+            ],
+            [
+                'icon' => 'fa-phone',
+                'title' => 'Phone',
+                'text' => '(345) 123 456 5368'
+            ]
+        ];
+
+        $status = null;
+        if (isset($_GET['success'])) {
+            $status = 'success';
+        } elseif (isset($_GET['error'])) {
+            $status = 'error';
+        }
         
-        $this->view('contact', compact('cart', 'cartItems'));
+        $this->view('contact', compact('cart', 'cartItems', 'contactInfo', 'status'));
     }
 
     public function process() {
