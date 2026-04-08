@@ -71,5 +71,8 @@ class AuthController extends Controller {
 
      
     }
+    public function profile() {
+    $this->view('profile'); 
+    }
 }
 ?>
