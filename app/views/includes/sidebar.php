@@ -6,7 +6,7 @@
 
         <li><a href="<?= BASE_URL ?>/admin/dashboard"><i class="fa-solid fa-sliders"></i> Dashboard</a></li>
 
-        <li><a href="#"><i class="fa-solid fa-credit-card"></i> Payment</a></li>
+        <li><a href="<?= BASE_URL ?>/admin/payment"><i class="fa-solid fa-credit-card"></i> Payment</a></li>
 
         <li class="dropdown">
             <a href="#">

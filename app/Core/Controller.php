@@ -1,6 +1,8 @@
 <?php
 namespace App\Core;
 
+use App\Models\User;
+
 class Controller
 {
     /**
@@ -11,6 +13,19 @@ class Controller
      */
     protected function view(string $view, array $data = []): void
     {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!array_key_exists('user', $data) && !empty($_SESSION['user_id'])) {
+            $userModel = new User();
+            $user = $userModel->getUserById((int) $_SESSION['user_id']);
+
+            if (is_array($user)) {
+                $data['user'] = $user;
+            }
+        }
+
         extract($data, EXTR_SKIP);
         require_once __DIR__ . '/../views/' . $view . '.php';
     }
@@ -53,4 +68,3 @@ class Controller
         }
     }
 }
-

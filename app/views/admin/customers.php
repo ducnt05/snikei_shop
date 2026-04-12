@@ -50,12 +50,16 @@
                 <?php if (!empty($customers)): ?>
                 <?php foreach ($customers as $customer): ?>
                 <div class="table-row">
+                    <div class="btn-viewAddress">
+                        <button>View address</button>
+                    </div>
                     <span class="id"><?php echo (int) $customer['id']; ?></span>
                     <span class="name"><?php echo htmlspecialchars($customer['name'], ENT_QUOTES, 'UTF-8'); ?></span>
                     <span class="email"><?php echo htmlspecialchars($customer['email'], ENT_QUOTES, 'UTF-8'); ?></span>
                     <span class="role">
-                        <span
-                            class="role-badge"><?php echo htmlspecialchars($customer['role'], ENT_QUOTES, 'UTF-8'); ?></span>
+                        <span class="role-badge"><a
+                                href="<?= BASE_URL ?>/admin/customer/role?id=<?php echo $customer['id']; ?>&role=<?php echo urlencode($customer['role']); ?>"><?php echo htmlspecialchars($customer['role'], ENT_QUOTES, 'UTF-8'); ?>
+                            </a></span>
                     </span>
                     <span class="action">
                         <a href="#" title="Edit customer"><i class="fa-solid fa-pen-to-square"></i></a>

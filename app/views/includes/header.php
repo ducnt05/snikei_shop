@@ -26,21 +26,23 @@ $navItems = [
 
     <nav class="header-nav" aria-label="Primary navigation">
         <?php foreach ($navItems as $item): ?>
-            <a href="<?= $item['href'] ?>" class="<?= $route === $item['route'] ? 'active' : '' ?>" <?= $route === $item['route'] ? 'aria-current="page"' : '' ?>><?= $item['label'] ?></a>
+        <a href="<?= $item['href'] ?>" class="<?= $route === $item['route'] ? 'active' : '' ?>"
+            <?= $route === $item['route'] ? 'aria-current="page"' : '' ?>><?= $item['label'] ?></a>
         <?php endforeach; ?>
     </nav>
 
     <div class="header-actions">
-        <?php if (isset($_SESSION['user_id'])): ?>
-            <a href="<?= BASE_URL ?>/profile" title="Profile"><i class="fa-solid fa-address-book"></i></a>
-        <?php endif; ?>
         <a href="#" title="Search"><i class="fa-solid fa-magnifying-glass"></i></a>
-        <a class="btn-cartshop" title="Cart"><i class="fa-solid fa-cart-shopping"></i></a>
-        <?php if (!isset($_SESSION['user_id'])): ?>
-            <a href="<?= BASE_URL ?>/login" title="Login"><i class="fa-solid fa-user"></i></a>
-        <?php endif; ?>
         <?php if (isset($_SESSION['user_id'])): ?>
-            <a href="<?= BASE_URL ?>/logout" title="Logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+        <a href="<?= BASE_URL ?>/profile" title="Profile"><i class="fa-solid fa-address-book"></i></a>
         <?php endif; ?>
+
+        <a class="btn-cartshop" title="Cart"><i class="fa-solid fa-cart-shopping"></i></a>
+        <?php if (!isset($_SESSION['user_id'])) { ?>
+        <a href="<?= BASE_URL ?>/login" title="Login"><i class="fa-solid fa-user"></i></a>
+        <?php } else { ?>
+        <p><?php echo htmlspecialchars($_SESSION['user_name'] ?? ($user['name'] ?? 'User'), ENT_QUOTES, 'UTF-8'); ?></p>
+        <a href="<?= BASE_URL ?>/logout" title="Logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+        <?php } ?>
     </div>
 </header>

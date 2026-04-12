@@ -11,7 +11,6 @@ class HomeController extends Controller {
         $productModel = new Product();
         $cartModel = new Cart();
         $cartItemModel = new Cart_item();
-        
         $products = $productModel->getAllProducts();
         $cart = $cartModel->getAllCart();
         $cartItems = $cartItemModel->getAllCartItems();

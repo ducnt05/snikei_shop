@@ -125,6 +125,12 @@ switch ($route) {
     case '/process_add_profile':
         (new AuthController())->processAddProfile();
         break;
+    case '/admin/payment':
+        (new AdminController())->payment();
+        break;
+    case '/admin/customer/role':
+        (new AdminController())->changeCustomerRole((int)($_GET['id'] ?? 0), $_GET['role'] ?? '');
+        break;
     default:
         http_response_code(404);
         echo '404 Not Found';

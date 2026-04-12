@@ -249,7 +249,41 @@ body {
 .table-empty i {
   font-size: 24px;
 }
+.table-row {
+  position: relative;
+}
+.btn-viewAddress {
+  position: absolute;
+  right: 400px;
+transform: translateY(-20px);
+  opacity: 0;
+  transition: 0.4s ease;
+}
+.table-row:hover .btn-viewAddress {
+ transform: translateY(0);
+  opacity: 1;
+}
+.btn-viewAddress button {
+  background-color: rgba(0, 67, 250, 0.1);
+  color: rgb(0, 67, 250);
+  border: none;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
 
+.btn-viewAddress button:hover {
+  background-color: rgba(0, 67, 250, 0.2);
+  transform: scale(1.05);
+}
 @media (max-width: 1200px) {
   .search-box input,
   .search-customer-box {

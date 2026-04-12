@@ -170,5 +170,32 @@ class AdminController extends Controller {
         $this->requireAdmin();
         $this->view('admin/overview', compact('user', 'orders'));
     }
+    public function payment() {
+        $this->view('admin/payment');   
+
+    }
+    public function changeCustomerRole($id, $role) {
+        $this->requireAdmin();
+
+        $id = (int) $id;
+        if ($id <= 0 || !in_array($role, ['user', 'admin'], true)) {
+            $this->redirect('admin/customers?error=1');
+        }
+
+        $userModel = new User();
+        $user = $userModel->getUserById($id);
+        if (!$user) {
+            $this->redirect('admin/customers?error=1');
+        }
+        // Toggle from current stored role.
+        $currentRole = $user['role'] ?? 'user';
+        $newRole = ($currentRole === 'admin') ? 'user' : 'admin';
+
+        if ($userModel->updateUserRole($id, $newRole)) {
+            $this->redirect('admin/customers');
+        }
+
+        $this->redirect('admin/customers?error=1');
+    }
 }
 ?>
