@@ -37,5 +37,9 @@ class User {
         $stmt = $this->db->prepare("UPDATE users SET role = ? WHERE id = ?");
         return $stmt->execute([$role, $id]);
     }
+    public function deleteUser($id) {
+        $stmt = $this->db->prepare("DELETE FROM users WHERE id = ?");
+        return $stmt->execute([$id]);
+    }
 }
 ?>

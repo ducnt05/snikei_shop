@@ -6,6 +6,7 @@ use App\Models\Contact;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Orders;
+use App\Models\Addresses;
 
 
 class AdminController extends Controller {
@@ -196,6 +197,39 @@ class AdminController extends Controller {
         }
 
         $this->redirect('admin/customers?error=1');
+    }
+    public function deleteCustomer($id) {
+        $this->requireAdmin();
+
+        $id = (int) $id;
+        if ($id <= 0) {
+            $this->redirect('admin/customers?error=1');
+        }
+
+        $userModel = new User();
+        if ($userModel->deleteUser($id)) {
+            $this->redirect('admin/customers');
+        }
+
+        $this->redirect('admin/customers?error=1');
+    }
+    public function viewCustomerAddress($id) {
+        $this->requireAdmin();
+
+        $id = (int) $id;
+        if ($id <= 0) {
+            $this->redirect('admin/customers?error=1');
+        }
+
+        $userModel = new User();
+        $customer = $userModel->getUserById($id);
+        $addressModel = new Addresses();
+        $address = $addressModel->getLatestAddressByUserId($id);
+        if (!$customer) {
+            $this->redirect('admin/customers?error=1');
+        }
+
+        $this->view('admin/customer_address', compact('customer', 'address'));
     }
 }
 ?>

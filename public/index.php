@@ -131,7 +131,14 @@ switch ($route) {
     case '/admin/customer/role':
         (new AdminController())->changeCustomerRole((int)($_GET['id'] ?? 0), $_GET['role'] ?? '');
         break;
+    case '/admin/customer/delete':
+        (new AdminController())->deleteCustomer((int)($_GET['id'] ?? 0));
+        break;
+    case '/admin/customer/address':
+        (new AdminController())->viewCustomerAddress((int)($_GET['id'] ?? 0));
+        break;
     default:
+    
         http_response_code(404);
         echo '404 Not Found';
         break;

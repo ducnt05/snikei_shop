@@ -9,6 +9,7 @@ use App\Models\Orders;
 use App\Models\OrderItems;
 use App\Models\Reviews;
 use App\Models\User;
+use App\Models\Vertex;
 class ShopController extends Controller {
     public function index() {
         $productModel = new Product();

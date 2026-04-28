@@ -263,7 +263,7 @@ transform: translateY(-20px);
  transform: translateY(0);
   opacity: 1;
 }
-.btn-viewAddress button {
+.btn-viewAddress a {
   background-color: rgba(0, 67, 250, 0.1);
   color: rgb(0, 67, 250);
   border: none;
@@ -280,7 +280,7 @@ transform: translateY(-20px);
   letter-spacing: 0.3px;
 }
 
-.btn-viewAddress button:hover {
+.btn-viewAddress a:hover {
   background-color: rgba(0, 67, 250, 0.2);
   transform: scale(1.05);
 }

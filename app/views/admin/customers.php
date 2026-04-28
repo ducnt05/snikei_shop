@@ -51,7 +51,8 @@
                 <?php foreach ($customers as $customer): ?>
                 <div class="table-row">
                     <div class="btn-viewAddress">
-                        <button>View address</button>
+                        <a href="<?= BASE_URL ?>/admin/customer/address?id=<?php echo $customer['id']; ?>">View
+                            address</a>
                     </div>
                     <span class="id"><?php echo (int) $customer['id']; ?></span>
                     <span class="name"><?php echo htmlspecialchars($customer['name'], ENT_QUOTES, 'UTF-8'); ?></span>
@@ -63,7 +64,8 @@
                     </span>
                     <span class="action">
                         <a href="#" title="Edit customer"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <a href="#" onclick="return confirm('Are you sure you want to delete this user?')"
+                        <a href="<?= BASE_URL ?>/admin/customer/delete?id=<?php echo $customer['id']; ?>"
+                            onclick="return confirm('Are you sure you want to delete this user?')"
                             title="Delete customer"><i class="fa-solid fa-trash"></i></a>
                     </span>
                 </div>
