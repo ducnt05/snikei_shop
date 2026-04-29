@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+$product = $product ?? [];
+$similarProduct = $similarProduct ?? [];
+$reviews = $reviews ?? [];
+$user = $user ?? [];
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -200,19 +207,18 @@
 
             <div class="product">
 
-                <?php foreach ($similarProduct as $similarProduct): ?>
+                <?php foreach ($similarProduct as $similarItem): ?>
                 <div class=" product-card">
                     <div class="image">
-                        <a href="<?= BASE_URL ?>/shop?id=<?= $similarProduct['id'] ?>">
-                            <img src="<?= BASE_URL ?>/uploads/<?php echo $similarProduct["image"] ?>" alt=""
-                                width="250px">
+                        <a href="<?= BASE_URL ?>/shop?id=<?= $similarItem['id'] ?>">
+                            <img src="<?= BASE_URL ?>/uploads/<?php echo $similarItem["image"] ?>" alt="" width="250px">
                         </a>
                     </div>
-                    <span class="name"><?php echo $similarProduct["name"] ?></span>
+                    <span class="name"><?php echo $similarItem["name"] ?></span>
                     <div class="price">
-                        <span>$<?php echo number_format($similarProduct["discount_price"], 0, ",", "."); ?></span>
+                        <span>$<?php echo number_format($similarItem["discount_price"], 0, ",", "."); ?></span>
                         <span
-                            class="old-price"><del>$<?php echo number_format($similarProduct["price"], 0, ",", "."); ?></del></span>
+                            class="old-price"><del>$<?php echo number_format($similarItem["price"], 0, ",", "."); ?></del></span>
                     </div>
                 </div>
                 <?php endforeach; ?>

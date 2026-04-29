@@ -26,6 +26,12 @@ class ShopController extends Controller {
         
         $productModel = new Product();
         $product = $productModel->getProductById($id);
+        if (!$product) {
+            http_response_code(404);
+            echo 'Product not found';
+            return;
+        }
+
         $similarProduct = $productModel->getProductByCategory($product['category']);
         $cartModel = new Cart();
         $cartItemModel = new Cart_item();
@@ -35,11 +41,6 @@ class ShopController extends Controller {
         $reviews = $reviewsModel->getReviewsByProductId($id);
         $userModel = new User();
         $user = $userModel->getAllUsers();
-        if (!$product) {
-            http_response_code(404);
-            echo 'Product not found';
-            return;
-        }
         
 
         $this->view('product_detail', compact('product', 'similarProduct', 'cart', 'cartItems', 'reviews', 'user'));
