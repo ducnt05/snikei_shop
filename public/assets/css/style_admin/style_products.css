@@ -1,59 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-body {
-  display: flex;
-  flex-direction: row;
-}
-.main {
-  width: 82%;
-  display: flex;
-  flex-direction: column;
- 
-}
-.main-header {
-  display: flex;
-  flex-direction: row;
-
-  border-bottom: 1px solid rgb(207, 222, 246);
-  align-items: center;
-  padding: 20px 0;
-  font-size: 20px;
-  color: rgb(90, 100, 116);
-}
-.main-header .header-left {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0 20px;
-}
-.header-left .search-box {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-left: 20px;
-}
-.search-box input {
-  padding: 10px;
-  width: 400px;
-  border: none;
-  border-radius: 20px;
-  margin-left: 5px;
-}
-.main-header .header-right {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-left: auto;
-  gap: 20px;
-  padding-right: 20px;
-}
-.header-right a {
-  text-decoration: none;
-  color: rgb(0, 67, 250);
-}
+/* Products page styles */
 .table-product {
   display: flex;
   flex-direction: column;
@@ -67,19 +12,25 @@ body {
   display: flex;
   flex-direction: row;
   width: 100%;
-  background-color: white;
-  padding: 10px;
-  border-bottom: 1px solid rgb(180, 179, 179);
+  background-color: var(--neutral-50);
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--neutral-200);
+  font-weight: var(--fw-semibold);
 }
+
 .table-form {
   display: flex;
   flex-direction: row;
   width: 100%;
-  background-color: white;
-  padding: 10px;
-  border-bottom: 1px solid rgb(180, 179, 179);
+  background-color: var(--bg-surface);
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--neutral-100);
   align-items: center;
+  transition: background-color 0.2s ease;
+}
 
+.table-form:hover {
+  background-color: var(--primary-light);
 }
 span {
   display: flex;
@@ -111,26 +62,32 @@ span {
 .quantity {
   width: 10%;
 }
-.action {
-  width: 10%;
+.action {var(--primary);
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.action a:hover {
+  color: var(--primary-dark)
   gap: 10px;
 }
 .action a {
   text-decoration: none;
   color: rgb(0, 67, 250);
   text-decoration: underline;
+}var(--spacing-lg) var(--spacing-2xl);
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--primary), rgb(29, 93, 255));
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: var(--fw-semibold);
+  transition: all 0.2s ease;
 }
-.btn-add {
-  display: flex;
-  flex-direction: column;
-  margin-left: auto;
-  padding: 15px 60px;
-  border-radius: 10px;
-}
-.add-product {
-  margin-top: 5%;
-}
-.add-product a {
+
+.btn-add:hover {
+  opacity: 0.9;
+  box-shadow: var(--shadow-lg)
   text-decoration: none;
   
 }

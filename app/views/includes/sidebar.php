@@ -17,22 +17,22 @@
 
             <ul class="submenu">
                 <li><a href="<?= BASE_URL ?>/admin/overview">Overview</a></li>
-                <li><a href="#">Add Transaction</a></li>
+                <li><a href="<?= BASE_URL ?>/admin/transaction">Add Transaction</a></li>
             </ul>
         </li>
 
 
-        <li><a href="#"><i class="fa-solid fa-calculator"></i> Taxes</a></li>
+        <li><a href="<?= BASE_URL ?>/admin/taxes"><i class="fa-solid fa-calculator"></i> Taxes</a></li>
 
         <li><a href="<?= BASE_URL ?>/admin/customers"><i class="fa-solid fa-users"></i> Users</a></li>
 
         <li><a href="<?= BASE_URL ?>/admin/messages"><i class="fa-solid fa-message"></i> Chat</a></li>
 
-        <li><a href="#"><i class="fa-solid fa-address-book"></i> Contact List</a></li>
+        <li><a href="<?= BASE_URL ?>/admin/contact-list"><i class="fa-solid fa-address-book"></i> Contact List</a></li>
 
-        <li><a href="#"><i class="fa-solid fa-calendar-alt"></i> Calendar</a></li>
+        <li><a href="<?= BASE_URL ?>/admin/calendar"><i class="fa-solid fa-calendar-alt"></i> Calendar</a></li>
 
-        <li><a href="#"><i class="fa-solid fa-file-invoice"></i> Invoice</a></li>
+        <li><a href="<?= BASE_URL ?>/admin/invoice"><i class="fa-solid fa-file-invoice"></i> Invoice</a></li>
 
         <li><a href="<?= BASE_URL ?>/admin/products"><i class="fa-solid fa-shirt"></i> Products</a></li>
 

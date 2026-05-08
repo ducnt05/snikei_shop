@@ -37,6 +37,16 @@ class Product {
         return $stmt->execute([$name, $description, $category, $price, $discount_price, $quantity, $image]);
     }
 
+    public function updateProduct($id, $name, $description, $category, $price, $discount_price, $quantity, $image = null) {
+        if ($image !== null && $image !== '') {
+            $stmt = $this->db->prepare("UPDATE products SET name = ?, description = ?, category = ?, price = ?, discount_price = ?, quantity = ?, image = ? WHERE id = ?");
+            return $stmt->execute([$name, $description, $category, $price, $discount_price, $quantity, $image, $id]);
+        }
+
+        $stmt = $this->db->prepare("UPDATE products SET name = ?, description = ?, category = ?, price = ?, discount_price = ?, quantity = ? WHERE id = ?");
+        return $stmt->execute([$name, $description, $category, $price, $discount_price, $quantity, $id]);
+    }
+
     public function deleteProduct($id) {
         $stmt = $this->db->prepare("DELETE FROM products WHERE id = ?");
         return $stmt->execute([$id]);

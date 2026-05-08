@@ -15,6 +15,11 @@
 <body>
     <?php include("includes/header.php"); ?>
     <?php include("includes/cart_shop.php"); ?>
+    <?php
+    $products = $products ?? [];
+    $cart = $cart ?? [];
+    $cartItems = $cartItems ?? [];
+    ?>
     <div class="container">
         <h1>Explore Our Shop</h1>
         <div class="row">

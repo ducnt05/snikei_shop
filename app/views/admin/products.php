@@ -7,11 +7,13 @@
     <title>Snikei Admin | Products</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_admin/style_sidebar.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_admin/style_admin_extra.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_admin/style_products.css">
 </head>
 
 <body>
     <?php include __DIR__ . "/../includes/sidebar.php"; ?>
+    <?php $products = $products ?? []; ?>
 
     <div class="main">
         <div class="main-header">

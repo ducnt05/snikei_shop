@@ -7,11 +7,20 @@
     <title>Snikei Admin | Overview</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_admin/style_sidebar.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_admin/style_admin_extra.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_admin/style_overview.css">
 </head>
 
 <body>
     <?php include __DIR__ . "/../includes/sidebar.php"; ?>
+    <?php
+    $orders = $orders ?? [];
+    $user = $user ?? [];
+    $userNamesById = [];
+    foreach ($user as $userRow) {
+        $userNamesById[(int) ($userRow['id'] ?? 0)] = $userRow['name'] ?? 'Unknown';
+    }
+    ?>
     <div class="main">
         <div class="main-header">
             <div class="header-left">
@@ -56,24 +65,19 @@
                 <?php if (!empty($orders)) : ?>
                 <?php foreach ($orders as $order) : ?>
                 <div class="table-row">
-                    <span class="id"><?= $order['id'] ?></span>
-                    <span
-                        class="name"><?= $user[array_search($order['user_id'], array_column($user, 'id'))]['name'] ?></span>
+                    <span class="id"><?= (int) ($order['id'] ?? 0) ?></span>
+                    <span class="name"><?= htmlspecialchars((string) ($userNamesById[(int) ($order['user_id'] ?? 0)] ?? 'Unknown'), ENT_QUOTES, 'UTF-8') ?></span>
                     <span class="created_at">
-                        <?= date('d/m/Y H:i:s', strtotime($order['created_at'])) ?>
+                        <?= !empty($order['created_at']) ? date('d/m/Y H:i:s', strtotime((string) $order['created_at'])) : '-' ?>
                     </span>
 
                     <span class="updated_at">
-                        <?= date('d/m/Y H:i:s', strtotime($order['updated_at'])) ?>
+                        <?= !empty($order['updated_at']) ? date('d/m/Y H:i:s', strtotime((string) $order['updated_at'])) : '-' ?>
                     </span>
-                    <span class="total">$<?= number_format($order['total_price'], 0) ?></span>
-                    <span class="status"><span class="status-badge"><?= $order['status'] ?></span></span>
+                    <span class="total">$<?= number_format((float) ($order['total_price'] ?? 0), 0) ?></span>
+                    <span class="status"><span class="status-badge"><?= htmlspecialchars((string) ($order['status'] ?? 'pending'), ENT_QUOTES, 'UTF-8') ?></span></span>
                     <span class="action">
-                        <span><a href="<?= BASE_URL ?>/admin/orders/<?= $order['id'] ?>/edit"><i
-                                    class="fa-solid fa-pen-to-square"></i></a></span>
-                        <span><a href="<?= BASE_URL ?>/admin/orders/<?= $order['id'] ?>/delete"
-                                onclick="return confirm('Are you sure you want to delete this order?')"><i
-                                    class="fa-solid fa-trash"></i></a></span>
+                        <span><a href="<?= BASE_URL ?>/admin/transaction?order_id=<?= (int) ($order['id'] ?? 0) ?>" title="Update status"><i class="fa-solid fa-pen-to-square"></i></a></span>
                     </span>
                 </div>
                 <?php endforeach; ?>

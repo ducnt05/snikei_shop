@@ -1,69 +1,13 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-body {
-  display: flex;
-  flex-direction: row;
-}
-.main {
-  display: flex;
-  flex-direction: column ;
-  width: 82%;
-  display: flex;
-}
-.main-header {
-  display: flex;
-  flex-direction: row;
-
-  border-bottom: 1px solid rgb(207, 222, 246);
-  align-items: center;
-  padding: 20px 0;
-  font-size: 20px;
-  color: rgb(90, 100, 116);
-}
-.main-header .header-left {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0 20px;
-}
-.header-left .search-box {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-left: 20px;
-}
-.search-box input {
-  padding: 10px;
-  width: 400px;
-  border: none;
-  border-radius: 20px;
-  margin-left: 5px;
-}
-.main-header .header-right {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-left: auto;
-  gap: 20px;
-  padding-right: 20px;
-}
-.header-right a {
-  text-decoration: none;
-  color: rgb(0, 67, 250);
-}
+/* Product Add Form styles */
 form {
   display: flex;
   flex-direction: row;
-  padding: 50px;
-  margin: 50px;
-  background-color: white;
-  height: 500px;
-  font-family: cursive;
-  border-radius: 10px;
-}
+  padding: var(--spacing-4xl);
+  margin: var(--spacing-4xl);
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--neutral-200);
+  box-shadow: var(--shadow-sm);
 form .left-form {
   display: flex;
   flex-direction: column;
@@ -80,12 +24,18 @@ form .right-image {
 }
 .left-form input {
   width: 70%;
-  height: 25px;
-  padding: 15px;
+  padding: var(--spacing-lg);
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
 }
+
 form select {
-  height: 25px;
+  padding: var(--spacing-md);
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-md);
   width: 70%;
+  font-size: var(--text-base);
 }
 .price div {
   display: flex;

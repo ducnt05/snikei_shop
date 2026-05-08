@@ -107,11 +107,20 @@ switch ($route) {
     case '/checkout':
         (new ShopController())->checkout();
         break;
+    case '/checkout/qr':
+        (new ShopController())->checkoutQr();
+        break;
+    case '/checkout/paid':
+        (new ShopController())->checkoutPaid();
+        break;
     case '/logout':
         (new AuthController())->logout();
         break;
     case '/admin/edit_product':
         (new AdminController())->editProduct((int)($_GET['id'] ?? 0));
+        break;
+    case '/admin/update_product':
+        (new AdminController())->updateProduct();
         break;
     case '/admin/overview':
         (new AdminController())->overview();
@@ -127,6 +136,24 @@ switch ($route) {
         break;
     case '/admin/payment':
         (new AdminController())->payment();
+        break;
+    case '/admin/taxes':
+        (new AdminController())->taxes();
+        break;
+    case '/admin/contact-list':
+        (new AdminController())->contactList();
+        break;
+    case '/admin/calendar':
+        (new AdminController())->calendar();
+        break;
+    case '/admin/invoice':
+        (new AdminController())->invoice();
+        break;
+    case '/admin/transaction':
+        (new AdminController())->transaction();
+        break;
+    case '/admin/process_transaction':
+        (new AdminController())->processTransaction();
         break;
     case '/admin/customer/role':
         (new AdminController())->changeCustomerRole((int)($_GET['id'] ?? 0), $_GET['role'] ?? '');

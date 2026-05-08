@@ -1,4 +1,4 @@
-/* Payment page styles */
+/* Transaction page styles */
 .content {
   display: flex;
   flex-direction: column;
@@ -48,6 +48,92 @@
   font-size: var(--text-sm);
   font-weight: var(--fw-medium);
   white-space: nowrap;
+}
+
+/* Form and Input Styles */
+.form-container {
+  background: white;
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  font-family: var(--font-primary);
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 67, 250, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+}
+
+.form-buttons {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-2xl);
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: var(--spacing-sm) var(--spacing-xl);
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+  font-size: var(--text-base);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 2px solid var(--border-light);
+}
+
+.btn-secondary:hover {
+  background: var(--border-light);
 }
 
 /* Stats Grid */
@@ -135,14 +221,14 @@
   font-weight: var(--fw-medium);
 }
 
-.table-row .created {
-  color: var(--text-secondary);
-  font-size: var(--text-xs);
-}
-
-.table-row .total {
+.table-row .amount {
   font-weight: var(--fw-bold);
   color: var(--success);
+}
+
+.table-row .date {
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
 }
 
 .status-badge {
@@ -169,6 +255,11 @@
   color: var(--danger);
 }
 
+.status-badge.is-info {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: var(--primary);
+}
+
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -189,15 +280,78 @@
   margin: 0;
 }
 
+/* Timeline/List Styles */
+.timeline-container {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.timeline-item {
+  display: flex;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--border-light);
+  transition: background-color 0.2s ease;
+}
+
+.timeline-item:hover {
+  background-color: rgba(0, 67, 250, 0.02);
+}
+
+.timeline-item:last-child {
+  border-bottom: none;
+}
+
+.timeline-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.timeline-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.timeline-content h4 {
+  margin: 0;
+  font-size: var(--text-base);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+}
+
+.timeline-content p {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.timeline-content .time {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  margin-top: var(--spacing-xs);
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .table-header,
   .table-row {
-    grid-template-columns: 60px 1fr 120px 100px;
+    grid-template-columns: 60px 1fr 120px;
   }
 
-  .table-row .status {
+  .table-row .date {
     display: none;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -221,9 +375,12 @@
     gap: var(--spacing-sm);
   }
 
-  .table-row .created,
-  .table-row .total,
-  .table-row .status {
-    display: none;
+  .form-buttons {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
   }
 }

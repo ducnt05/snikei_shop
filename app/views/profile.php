@@ -31,47 +31,59 @@
                     <div class="avatar-block">
                         <div class="avatar-preview">
                             <?php if ($avatarPath): ?>
-                                <img src="<?= htmlspecialchars($avatarPath, ENT_QUOTES, 'UTF-8') ?>" alt="Profile image">
+                            <img src="<?= htmlspecialchars($avatarPath, ENT_QUOTES, 'UTF-8') ?>" alt="Profile image">
                             <?php else: ?>
-                                <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-user"></i>
                             <?php endif; ?>
                         </div>
                         <label class="avatar-upload" for="img_avatar">Profile Image</label>
                         <input type="file" id="img_avatar" name="img_avatar" accept="image/*" hidden>
                     </div>
 
-                    <input type="hidden" name="address_id" value="<?= htmlspecialchars((string)($address['id'] ?? ''), ENT_QUOTES, 'UTF-8') ?>">
+                    <input type="hidden" name="address_id"
+                        value="<?= htmlspecialchars((string)($address['id'] ?? ''), ENT_QUOTES, 'UTF-8') ?>">
 
                     <div class="grid-fields">
                         <div class="form-field">
                             <label for="address_type">Address Type</label>
                             <select id="address_type" name="address_type" required>
                                 <option value="">Select address type</option>
-                                <option value="home" <?= (($address['address_type'] ?? '') === 'home') ? 'selected' : '' ?>>Home</option>
-                                <option value="office" <?= (($address['address_type'] ?? '') === 'office') ? 'selected' : '' ?>>Office</option>
-                                <option value="billing" <?= (($address['address_type'] ?? '') === 'billing') ? 'selected' : '' ?>>Billing</option>
-                                <option value="shipping" <?= (($address['address_type'] ?? '') === 'shipping') ? 'selected' : '' ?>>Shipping</option>
+                                <option value="home"
+                                    <?= (($address['address_type'] ?? '') === 'home') ? 'selected' : '' ?>>Home</option>
+                                <option value="office"
+                                    <?= (($address['address_type'] ?? '') === 'office') ? 'selected' : '' ?>>Office
+                                </option>
+                                <option value="billing"
+                                    <?= (($address['address_type'] ?? '') === 'billing') ? 'selected' : '' ?>>Billing
+                                </option>
+                                <option value="shipping"
+                                    <?= (($address['address_type'] ?? '') === 'shipping') ? 'selected' : '' ?>>Shipping
+                                </option>
                             </select>
                         </div>
 
                         <div class="form-field">
                             <label for="country">Country</label>
-                            <input type="text" id="country" name="country" placeholder="Vietnam" required value="<?= htmlspecialchars($address['country'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                            <input type="text" id="country" name="country" placeholder="Vietnam" required
+                                value="<?= htmlspecialchars($address['country'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                         </div>
 
                         <div class="form-field">
                             <label for="state">State/Province</label>
-                            <input type="text" id="state" name="state" placeholder="Hanoi" required value="<?= htmlspecialchars($address['state'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                            <input type="text" id="state" name="state" placeholder="Hanoi" required
+                                value="<?= htmlspecialchars($address['state'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                         </div>
 
                         <div class="form-field">
                             <label for="city">City</label>
-                            <input type="text" id="city" name="city" placeholder="Ba Dinh District" required value="<?= htmlspecialchars($address['city'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                            <input type="text" id="city" name="city" placeholder="Ba Dinh District" required
+                                value="<?= htmlspecialchars($address['city'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                         </div>
 
                         <div class="form-field">
                             <label for="postal_code">Postal code</label>
-                            <input type="text" id="postal_code" name="postal_code" placeholder="100000" required value="<?= htmlspecialchars($address['postal_code'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                            <input type="text" id="postal_code" name="postal_code" placeholder="100000" required
+                                value="<?= htmlspecialchars($address['postal_code'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                         </div>
 
                         <div class="form-field full-width">
@@ -82,7 +94,8 @@
 
                         <div class="form-field full-width check-field">
                             <label for="is_default" class="check-wrap">
-                                <input type="checkbox" id="is_default" name="is_default" value="1" <?= !empty($address['is_default']) ? 'checked' : '' ?>>
+                                <input type="checkbox" id="is_default" name="is_default" value="1"
+                                    <?= !empty($address['is_default']) ? 'checked' : '' ?>>
                                 <span>Set as default address</span>
                             </label>
                         </div>

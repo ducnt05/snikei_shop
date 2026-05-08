@@ -64,11 +64,12 @@ class ShopController extends Controller {
         }
     }
     public function checkout() {
-        $userId = $_POST['user_id'] ?? null;
-        $totalPrice = $_POST['total_price'] ?? null;
-        $status = $_POST['status'] ?? null;
+        $this->requireAuth();
 
-        if (!$userId || !$totalPrice) {
+        $userId = (int) ($_SESSION['user_id'] ?? ($_POST['user_id'] ?? 0));
+        $totalPrice = (float) ($_POST['total_price'] ?? 0);
+
+        if ($userId <= 0 || $totalPrice <= 0) {
             http_response_code(400);
             echo 'Invalid checkout data';
             return;
@@ -76,10 +77,6 @@ class ShopController extends Controller {
 
         $cartModel = new Cart();
         $cartItemModel = new Cart_item();
-        $ordersModel = new Orders();
-        $orderItemsModel = new OrderItems();
-        $productModel = new Product();
-
         // Get cart ID for user
         $cartId = $cartModel->getIdCart($userId);
         if (!$cartId) {
@@ -96,39 +93,85 @@ class ShopController extends Controller {
             return;
         }
 
-        // Create order
-        $orders = $ordersModel->createOrder($userId, $totalPrice, $status);
-        $orderId = $ordersModel->getOrdersByUserId($userId);
-        
-        if (!empty($orderId)) {
-            $orderId = $orderId[0]['id'] ?? null;
-            
-            
-            if ($orderId) {
-                foreach ($cartItems as $item) {
-                    $orderItemsModel->createOrderItem(
-                        $orderId,
-                        $item['product_id'] ?? null,
-                        $item['quantity'] ?? 0,
-                        $item['discount_price'] ?? 0
-                    );
-                    // Update product quantity
-                    $productId = $item['product_id'] ?? null;
-                    if ($productId) {
-                        $currentQuantity = $productModel->getQuantityProduct($productId);
-                        $newQuantity = max(0, $currentQuantity - (int)($item['quantity'] ?? 0));
-                        $productModel->updateQuantityProduct($productId, $newQuantity);
-                    }
-                }
-            }
+        $_SESSION['payment_qr'] = [
+            'user_id' => $userId,
+            'cart_id' => $cartId,
+            'total_price' => $totalPrice,
+            'bank_name' => 'TECHCOMBANK',
+            'account_name' => 'NGUYEN ANH DUC',
+            'account_number' => '33027102005',
+            'note' => 'Thanh toan don hang SNIKEI',
+            'cart_items' => $cartItems,
+        ];
+
+        $this->redirect('/checkout/qr');
+    }
+
+    public function checkoutQr() {
+        $this->requireAuth();
+
+        $paymentQr = $_SESSION['payment_qr'] ?? null;
+        if (empty($paymentQr)) {
+            $this->redirect('/');
+            return;
         }
 
-        // Clear cart
-        $cartItemModel->clearCartItemsByCartId($cartId);
-        $cartModel->clearCart($userId);
+        $this->view('payment_qr', [
+            'paymentQr' => $paymentQr,
+        ]);
+    }
 
-        // Redirect to confirmation page
-        $this->redirect('/shop');
+    public function checkoutPaid() {
+        $this->requireAuth();
+
+        $paymentQr = $_SESSION['payment_qr'] ?? null;
+        if (empty($paymentQr) || empty($paymentQr['user_id']) || empty($paymentQr['cart_id'])) {
+            $this->redirect('/');
+            return;
+        }
+
+        $userId = (int) $paymentQr['user_id'];
+        $cartId = (int) $paymentQr['cart_id'];
+        $totalPrice = (float) ($paymentQr['total_price'] ?? 0);
+        $cartItems = $paymentQr['cart_items'] ?? [];
+
+        if ($userId <= 0 || $cartId <= 0 || $totalPrice <= 0 || empty($cartItems)) {
+            unset($_SESSION['payment_qr']);
+            $this->redirect('/');
+            return;
+        }
+
+        $ordersModel = new Orders();
+        $orderItemsModel = new OrderItems();
+        $cartModel = new Cart();
+        $cartItemModel = new Cart_item();
+        $productModel = new Product();
+
+        $orderId = $ordersModel->createOrder($userId, $totalPrice, 'paid');
+
+        if ($orderId > 0) {
+            foreach ($cartItems as $item) {
+                $orderItemsModel->createOrderItem(
+                    $orderId,
+                    $item['product_id'] ?? null,
+                    $item['quantity'] ?? 0,
+                    $item['discount_price'] ?? 0
+                );
+
+                $productId = $item['product_id'] ?? null;
+                if ($productId) {
+                    $currentQuantity = $productModel->getQuantityProduct($productId);
+                    $newQuantity = max(0, $currentQuantity - (int) ($item['quantity'] ?? 0));
+                    $productModel->updateQuantityProduct($productId, $newQuantity);
+                }
+            }
+
+            $cartItemModel->clearCartItemsByCartId($cartId);
+            $cartModel->clearCart($userId);
+        }
+
+        unset($_SESSION['payment_qr']);
+        $this->redirect('/');
     }
     public function addReview() {
         $userId = $_POST['user_id'] ?? null;

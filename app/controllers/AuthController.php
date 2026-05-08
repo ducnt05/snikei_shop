@@ -79,13 +79,20 @@ class AuthController extends Controller {
 
         $userId = $_SESSION['user_id'] ?? null;
         $address = null;
+        $cart = [];
+        $cartItems = [];
 
         if ($userId) {
             $addressesModel = new Addresses();
             $address = $addressesModel->getLatestAddressByUserId($userId);
+
+            $cartModel = new Cart();
+            $cartItemModel = new Cart_item();
+            $cart = $cartModel->getAllCart();
+            $cartItems = $cartItemModel->getAllCartItems();
         }
 
-        $this->view('profile', compact('address'));
+        $this->view('profile', compact('address', 'cart', 'cartItems'));
     }
     public function processAddProfile() {
         if (session_status() === PHP_SESSION_NONE) {

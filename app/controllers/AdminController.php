@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\Contact;
+use App\Models\Database;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Orders;
@@ -163,17 +164,218 @@ class AdminController extends Controller {
 
         $this->view('admin/product_edit', compact('product'));
     }
+    public function updateProduct() {
+        $this->requireAdmin();
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('admin/products');
+        }
+
+        $id = (int) ($_POST['id'] ?? 0);
+        $name = trim((string) ($_POST['name'] ?? ''));
+        $description = trim((string) ($_POST['description'] ?? ''));
+        $category = trim((string) ($_POST['category'] ?? ''));
+        $price = (float) ($_POST['price'] ?? 0);
+        $discount_price = (float) ($_POST['discount_price'] ?? 0);
+        $quantity = (int) ($_POST['quantity'] ?? 0);
+        $currentImage = (string) ($_POST['current_image'] ?? '');
+
+        if ($id <= 0 || $name === '' || $category === '') {
+            $this->redirect('admin/edit_product?id=' . $id . '&error=1');
+        }
+
+        $image = $currentImage;
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $targetDir = __DIR__ . '/../../public/uploads/';
+            if (!is_dir($targetDir)) {
+                mkdir($targetDir, 0755, true);
+            }
+
+            $filename = basename($_FILES['image']['name']);
+            $targetFile = $targetDir . $filename;
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
+                $image = $filename;
+            }
+        }
+
+        $db = Database::getInstance()->getConnection();
+        if ($image !== null && $image !== '') {
+            $stmt = $db->prepare('UPDATE products SET name = ?, description = ?, category = ?, price = ?, discount_price = ?, quantity = ?, image = ? WHERE id = ?');
+            $updated = $stmt->execute([$name, $description, $category, $price, $discount_price, $quantity, $image, $id]);
+        } else {
+            $stmt = $db->prepare('UPDATE products SET name = ?, description = ?, category = ?, price = ?, discount_price = ?, quantity = ? WHERE id = ?');
+            $updated = $stmt->execute([$name, $description, $category, $price, $discount_price, $quantity, $id]);
+        }
+
+        if ($updated) {
+            $this->redirect('admin/products');
+        }
+
+        $this->redirect('admin/edit_product?id=' . $id . '&error=1');
+    }
     public function overview() {
+        $this->requireAdmin();
+
         $userModel = new User();
         $orderModel = new Orders();  
         $user = $userModel->getAllUsers();
         $orders = $orderModel->getAllOrders();
-        $this->requireAdmin();
         $this->view('admin/overview', compact('user', 'orders'));
     }
     public function payment() {
-        $this->view('admin/payment');   
+        $this->requireAdmin();
 
+        $orderModel = new Orders();
+        $userModel = new User();
+
+        $payments = $orderModel->getAllOrders();
+        $users = $userModel->getAllUsers();
+
+        $userNamesById = [];
+        foreach ($users as $user) {
+            $userNamesById[(int) $user['id']] = $user['name'] ?? 'Unknown';
+        }
+
+        $paymentSummary = [
+            'total_orders' => count($payments),
+            'paid' => 0,
+            'pending' => 0,
+            'revenue' => 0,
+        ];
+
+        foreach ($payments as $payment) {
+            $status = strtolower((string) ($payment['status'] ?? 'pending'));
+            if (isset($paymentSummary[$status])) {
+                $paymentSummary[$status]++;
+            }
+            $paymentSummary['revenue'] += (float) ($payment['total_price'] ?? 0);
+        }
+
+        $this->view('admin/payment', compact('payments', 'userNamesById', 'paymentSummary'));
+
+    }
+    public function taxes() {
+        $this->requireAdmin();
+
+        $orderModel = new Orders();
+        $orders = $orderModel->getAllOrders();
+
+        $taxRate = 0.1;
+        $taxableRevenue = 0;
+        $taxSummary = [];
+
+        foreach ($orders as $order) {
+            $amount = (float) ($order['total_price'] ?? 0);
+            $taxableRevenue += $amount;
+
+            if (!empty($order['created_at'])) {
+                $monthKey = date('Y-m', strtotime((string) $order['created_at']));
+                if (!isset($taxSummary[$monthKey])) {
+                    $taxSummary[$monthKey] = 0;
+                }
+                $taxSummary[$monthKey] += $amount * $taxRate;
+            }
+        }
+
+        krsort($taxSummary);
+
+        $this->view('admin/taxes', compact('orders', 'taxRate', 'taxableRevenue', 'taxSummary'));
+    }
+
+    public function contactList() {
+        $this->requireAdmin();
+
+        $userModel = new User();
+        $customers = $userModel->getAllUsers();
+
+        $this->view('admin/contact_list', compact('customers'));
+    }
+
+    public function calendar() {
+        $this->requireAdmin();
+
+        $orderModel = new Orders();
+        $contactModel = new Contact();
+        $orders = $orderModel->getAllOrders();
+        $messages = $contactModel->getAllMessages();
+
+        $events = [];
+        foreach ($orders as $order) {
+            if (!empty($order['created_at'])) {
+                $events[] = [
+                    'date' => (string) $order['created_at'],
+                    'title' => 'Order #' . (int) ($order['id'] ?? 0),
+                    'type' => 'order',
+                    'status' => $order['status'] ?? 'pending',
+                    'amount' => (float) ($order['total_price'] ?? 0),
+                ];
+            }
+        }
+
+        foreach ($messages as $message) {
+            if (!empty($message['created_at'])) {
+                $events[] = [
+                    'date' => (string) $message['created_at'],
+                    'title' => 'Message from ' . ($message['name'] ?? 'Guest'),
+                    'type' => 'message',
+                ];
+            }
+        }
+
+        usort($events, function ($left, $right) {
+            return strcmp($right['date'] ?? '', $left['date'] ?? '');
+        });
+
+        $this->view('admin/calendar', compact('events'));
+    }
+
+    public function invoice() {
+        $this->requireAdmin();
+
+        $orderModel = new Orders();
+        $userModel = new User();
+
+        $orders = $orderModel->getAllOrders();
+        $users = $userModel->getAllUsers();
+
+        $userNamesById = [];
+        foreach ($users as $user) {
+            $userNamesById[(int) $user['id']] = $user['name'] ?? 'Unknown';
+        }
+
+        $this->view('admin/invoice', compact('orders', 'userNamesById'));
+    }
+
+    public function transaction() {
+        $this->requireAdmin();
+
+        $orderModel = new Orders();
+        $orders = $orderModel->getAllOrders();
+        $selectedOrderId = (int) ($_GET['order_id'] ?? 0);
+
+        $this->view('admin/transaction', compact('orders', 'selectedOrderId'));
+    }
+
+    public function processTransaction() {
+        $this->requireAdmin();
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('admin/transaction');
+        }
+
+        $orderId = (int) ($_POST['order_id'] ?? 0);
+        $status = trim((string) ($_POST['status'] ?? ''));
+
+        if ($orderId <= 0 || !in_array($status, ['pending', 'processing', 'paid', 'completed', 'cancelled'], true)) {
+            $this->redirect('admin/transaction?error=1');
+        }
+
+        $orderModel = new Orders();
+        if ($orderModel->updateOrderStatus($orderId, $status)) {
+            $this->redirect('admin/transaction?success=1');
+        }
+
+        $this->redirect('admin/transaction?error=1');
     }
     public function changeCustomerRole($id, $role) {
         $this->requireAdmin();

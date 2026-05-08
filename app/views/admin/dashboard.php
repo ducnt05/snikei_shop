@@ -7,6 +7,7 @@
     <title>Snikei Admin | Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_admin/style_sidebar.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_admin/style_admin_extra.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style_admin/style_dashboard.css">
 </head>
 
