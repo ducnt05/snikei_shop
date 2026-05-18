@@ -142,32 +142,75 @@ $user = $user ?? [];
             </div>
         </section>
         <div class="product-review">
-            <h2>Product Reviews</h2>
+            <h2>Product Reviews (<?= $totalReviews ?? 0 ?> reviews)</h2>
             <!-- Review content will be displayed here -->
             <?php
-            $reviews = $reviews ?? [];
+            $paginatedReviews = $paginatedReviews ?? [];
             $user = $user ?? [];
+            $userAvatarById = $userAvatarById ?? [];
             $userNameById = array_column($user, 'name', 'id');
+            $defaultAvatar = "https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg";
+            $currentPage = $currentPage ?? 1;
+            $totalPages = $totalPages ?? 1;
             ?>
-            <?php foreach ($reviews as $review): ?>
-            <div class="review">
-                <div class="name-user"><img
-                        src="https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg"
-                        alt="User Avatar" width="50px">
-                    <h4><?= htmlspecialchars($userNameById[(int) ($review['user_id'] ?? 0)] ?? 'Unknown User', ENT_QUOTES, 'UTF-8') ?>
-                    </h4>
+            <div class="reviews-container">
+                <?php foreach ($paginatedReviews as $review): ?>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="user-info">
+                            <img class="user-avatar"
+                                src="<?php $userId = (int) ($review['user_id'] ?? 0); $userAvatar = $userAvatarById[$userId] ?? null; echo $userAvatar ? BASE_URL . '/' . htmlspecialchars($userAvatar, ENT_QUOTES, 'UTF-8') : $defaultAvatar; ?>"
+                                alt="User Avatar">
+                            <div class="user-details">
+                                <h4><?= htmlspecialchars($userNameById[(int) ($review['user_id'] ?? 0)] ?? 'Unknown User', ENT_QUOTES, 'UTF-8') ?>
+                                </h4>
+                                <div class="rating-stars">
+                                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                                    <span class="star <?= $i <= $review['rating'] ? 'filled' : 'empty' ?>">
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                    <?php endfor; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-content">
+                        <p><?= htmlspecialchars($review['comment'], ENT_QUOTES, 'UTF-8') ?></p>
+                    </div>
                 </div>
-
-                <div class="rating">
-                    <?php for ($i = 1; $i <= $review['rating']; $i++): ?>
-                    <span class="star <?= $i <= $review['rating'] ? 'filled' : '' ?>"><img
-                            src="https://cdn.prod.website-files.com/6890fbf29f28b7089b169c21/68a07e9e478c76ab436809ab_star-fill%20(1).svg"
-                            loading="lazy" width="20" alt=""></span>
-                    <?php endfor; ?>
-                </div>
-                <p><?= $review['comment'] ?></p>
+                <?php endforeach; ?>
             </div>
-            <?php endforeach; ?>
+
+            <!-- Pagination -->
+            <?php if ($totalPages > 1): ?>
+            <div class="pagination">
+                <?php if ($currentPage > 1): ?>
+                <a href="<?= BASE_URL ?>/shop?id=<?= $product['id'] ?>&page=1" class="page-link"><i
+                        class="fas fa-chevron-left"></i><i class="fas fa-chevron-left"></i></a>
+                <a href="<?= BASE_URL ?>/shop?id=<?= $product['id'] ?>&page=<?= $currentPage - 1 ?>"
+                    class="page-link"><i class="fas fa-chevron-left"></i></a>
+                <?php endif; ?>
+
+                <?php 
+                $startPage = max(1, $currentPage - 2);
+                $endPage = min($totalPages, $currentPage + 2);
+                
+                for ($page = $startPage; $page <= $endPage; $page++): 
+                ?>
+                <a href="<?= BASE_URL ?>/shop?id=<?= $product['id'] ?>&page=<?= $page ?>"
+                    class="page-link <?= $page === $currentPage ? 'active' : '' ?>">
+                    <?= $page ?>
+                </a>
+                <?php endfor; ?>
+
+                <?php if ($currentPage < $totalPages): ?>
+                <a href="<?= BASE_URL ?>/shop?id=<?= $product['id'] ?>&page=<?= $currentPage + 1 ?>"
+                    class="page-link"><i class="fas fa-chevron-right"></i></a>
+                <a href="<?= BASE_URL ?>/shop?id=<?= $product['id'] ?>&page=<?= $totalPages ?>" class="page-link"><i
+                        class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i></a>
+                <?php endif; ?>
+            </div>
+            <?php endif; ?>
             <div class="form-review">
                 <?php if (isset($_SESSION['user_id'])): ?>
                 <form action=" <?= BASE_URL ?>/process_add_review" method="POST">
@@ -176,21 +219,20 @@ $user = $user ?? [];
 
                     <h3>Write a Review</h3>
                     <div class="rating">
-
                         <input type="radio" id="star5" name="rating" value="5">
-                        <label for="star5" class="star"></label>
+                        <label for="star5" class="star"><i class="fas fa-star"></i></label>
 
                         <input type="radio" id="star4" name="rating" value="4">
-                        <label for="star4" class="star"></label>
+                        <label for="star4" class="star"><i class="fas fa-star"></i></label>
 
                         <input type="radio" id="star3" name="rating" value="3">
-                        <label for="star3" class="star"></label>
+                        <label for="star3" class="star"><i class="fas fa-star"></i></label>
 
                         <input type="radio" id="star2" name="rating" value="2">
-                        <label for="star2" class="star"></label>
+                        <label for="star2" class="star"><i class="fas fa-star"></i></label>
 
                         <input type="radio" id="star1" name="rating" value="1">
-                        <label for="star1" class="star"></label>
+                        <label for="star1" class="star"><i class="fas fa-star"></i></label>
                     </div>
                     <textarea class="input-comment" name="comment" placeholder="Write your review here..."></textarea>
                     <div class="btn-review">

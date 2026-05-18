@@ -9,6 +9,7 @@ use App\Models\Orders;
 use App\Models\OrderItems;
 use App\Models\Reviews;
 use App\Models\User;
+use App\Models\Addresses;
 use App\Models\Vertex;
 class ShopController extends Controller {
     public function index() {
@@ -41,9 +42,27 @@ class ShopController extends Controller {
         $reviews = $reviewsModel->getReviewsByProductId($id);
         $userModel = new User();
         $user = $userModel->getAllUsers();
+        $addressModel = new Addresses();
+        
+        // Lấy avatar từ table addresses
+        $userAvatarById = [];
+        foreach ($user as $userData) {
+            $address = $addressModel->getLatestAddressByUserId($userData['id']);
+            if ($address && $address['img_avatar']) {
+                $userAvatarById[$userData['id']] = $address['img_avatar'];
+            }
+        }
+        
+        // Phân trang reviews
+        $reviewsPerPage = 2;
+        $currentPage = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+        $totalReviews = count($reviews);
+        $totalPages = ceil($totalReviews / $reviewsPerPage);
+        $startIndex = ($currentPage - 1) * $reviewsPerPage;
+        $paginatedReviews = array_slice($reviews, $startIndex, $reviewsPerPage);
         
 
-        $this->view('product_detail', compact('product', 'similarProduct', 'cart', 'cartItems', 'reviews', 'user'));
+        $this->view('product_detail', compact('product', 'similarProduct', 'cart', 'cartItems', 'paginatedReviews', 'user', 'userAvatarById', 'currentPage', 'totalPages', 'totalReviews'));
     }
     public function addToCart() {
         $productModel = new Product();
