@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\Orders;
 use App\Models\Addresses;
+use App\Models\Coupon;
 
 
 class AdminController extends Controller {
@@ -432,6 +433,69 @@ class AdminController extends Controller {
         }
 
         $this->view('admin/customer_address', compact('customer', 'address'));
+    }
+
+    public function coupons() {
+        $this->requireAdmin();
+
+        $couponModel = new Coupon();
+        $coupons = $couponModel->getAllCoupons();
+
+        $this->view('admin/coupons', compact('coupons'));
+    }
+
+    public function processAddCoupon() {
+        $this->requireAdmin();
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('admin/coupons');
+        }
+
+        $code = trim((string)($_POST['code'] ?? ''));
+        $discount_percent = (float) ($_POST['discount_percent'] ?? 0);
+        $discount_amount = (float) ($_POST['discount_amount'] ?? 0);
+        $valid_from = trim((string)($_POST['valid_from'] ?? ''));
+        $valid_until = trim((string)($_POST['valid_until'] ?? ''));
+        // convert HTML5 datetime-local (e.g. 2026-05-18T20:00) to MySQL DATETIME
+        if ($valid_from !== '') {
+            $valid_from = str_replace('T', ' ', $valid_from) . ':00';
+        } else {
+            $valid_from = null;
+        }
+        if ($valid_until !== '') {
+            $valid_until = str_replace('T', ' ', $valid_until) . ':00';
+        } else {
+            $valid_until = null;
+        }
+        $usage_limit = (int) ($_POST['usage_limit'] ?? 0);
+        $status = trim((string)($_POST['status'] ?? 'active'));
+
+        if ($code === '') {
+            $this->redirect('admin/coupons?error=1');
+        }
+
+        $couponModel = new Coupon();
+        if ($couponModel->addCoupon($code, $discount_percent, $discount_amount, $valid_from, $valid_until, $usage_limit, $status)) {
+            $this->redirect('admin/coupons?success=1');
+        }
+
+        $this->redirect('admin/coupons?error=1');
+    }
+
+    public function deleteCoupon($id) {
+        $this->requireAdmin();
+
+        $id = (int) $id;
+        if ($id <= 0) {
+            $this->redirect('admin/coupons?error=1');
+        }
+
+        $couponModel = new Coupon();
+        if ($couponModel->deleteCoupon($id)) {
+            $this->redirect('admin/coupons');
+        }
+
+        $this->redirect('admin/coupons?error=1');
     }
 }
 ?>

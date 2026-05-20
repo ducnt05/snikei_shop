@@ -80,6 +80,8 @@
                 <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?? 0 ?>">
                 <input type="hidden" name="total_price"
                     value="<?= array_sum(array_map(function($item) { return (float)($item['discount_price'] ?? 0) * (int)($item['quantity'] ?? 0); }, $userCartItems)) ?>">
+                <label for="coupon_code">Coupon code (optional)</label>
+                <input type="text" name="coupon_code" id="coupon_code" placeholder="Enter coupon code">
                 <input type="hidden" name="status" value="processing">
                 <button type="submit" onclick="return confirm('Are you sure you want to checkout?')">Checkout</button>
             </form>

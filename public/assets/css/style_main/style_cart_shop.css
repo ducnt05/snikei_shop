@@ -113,6 +113,34 @@
 .btn-checkout button:hover {
   background-color: #333333;
 }
+.btn-checkout form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-checkout form label[for="coupon_code"] {
+  font-size: 13px;
+  color: #555;
+  margin: 0;
+}
+.btn-checkout form input#coupon_code {
+  padding: 8px 10px;
+  border: 1px solid #e1e6ef;
+  border-radius: 6px;
+  background: #fbfdff;
+  width: 200px;
+}
+.btn-checkout form input#coupon_code::placeholder {
+  color: #a8b0bf;
+}
+.btn-checkout form .btn-add-coupon {
+  background: #0066ff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
 .btn-remove {
   text-decoration: none;
   color: red;
@@ -138,5 +166,15 @@
   padding: 10px;
 }
 
-
-
+@media (max-width: 600px) {
+  .btn-checkout form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn-checkout form input#coupon_code {
+    width: 100%;
+  }
+  .btn-checkout button {
+    width: 100%;
+  }
+}

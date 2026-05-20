@@ -35,6 +35,7 @@
         <li><a href="<?= BASE_URL ?>/admin/invoice"><i class="fa-solid fa-file-invoice"></i> Invoice</a></li>
 
         <li><a href="<?= BASE_URL ?>/admin/products"><i class="fa-solid fa-shirt"></i> Products</a></li>
+        <li><a href="<?= BASE_URL ?>/admin/coupons"><i class="fa-solid fa-ticket-simple"></i> Coupons</a></li>
 
         <span>Components</span>
 

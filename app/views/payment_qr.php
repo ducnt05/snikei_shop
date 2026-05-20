@@ -6,6 +6,8 @@ $accountName = (string) ($paymentQr['account_name'] ?? 'NGUYEN ANH DUC');
 $accountNumber = (string) ($paymentQr['account_number'] ?? '33027102005');
 $note = (string) ($paymentQr['note'] ?? 'Thanh toan don hang SNIKEI');
 $qrImageUrl = 'https://img.vietqr.io/image/' . rawurlencode($bankName) . '-' . rawurlencode($accountNumber) . '-compact2.png?amount=' . rawurlencode((string) round($totalPrice)) . '&addInfo=' . rawurlencode($note) . '&accountName=' . rawurlencode($accountName);
+$couponInfo = $paymentQr['coupon'] ?? null;
+$discountShown = (float)($couponInfo['discount'] ?? 0);
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -28,6 +30,13 @@ $qrImageUrl = 'https://img.vietqr.io/image/' . rawurlencode($bankName) . '-' . r
                 <span>Số tiền cần thanh toán</span>
                 <strong>$<?= number_format($totalPrice, 0, ',', '.') ?></strong>
             </div>
+
+            <?php if (!empty($couponInfo)): ?>
+            <div style="padding:8px 16px; text-align:left">
+                <div>Coupon: <strong><?= htmlspecialchars($couponInfo['code'] ?? '', ENT_QUOTES, 'UTF-8') ?></strong></div>
+                <div>Giảm: <strong>$<?= number_format($discountShown, 0, ',', '.') ?></strong></div>
+            </div>
+            <?php endif; ?>
 
             <div class="qr-box">
                 <img src="<?= htmlspecialchars($qrImageUrl, ENT_QUOTES, 'UTF-8') ?>" alt="QR thanh toán">

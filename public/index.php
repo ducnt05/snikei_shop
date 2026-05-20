@@ -63,6 +63,15 @@ switch ($route) {
     case '/admin/products':
         (new AdminController())->products();
         break;
+    case '/admin/coupons':
+        (new AdminController())->coupons();
+        break;
+    case '/admin/process_add_coupon':
+        (new AdminController())->processAddCoupon();
+        break;
+    case '/admin/delete_coupon':
+        (new AdminController())->deleteCoupon((int)($_GET['id'] ?? 0));
+        break;
     case '/admin/product_add':
         (new AdminController())->addProduct();
         break;

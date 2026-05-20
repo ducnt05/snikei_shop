@@ -11,6 +11,8 @@ use App\Models\Reviews;
 use App\Models\User;
 use App\Models\Addresses;
 use App\Models\Vertex;
+use App\Models\Coupon;
+
 class ShopController extends Controller {
     public function index() {
         $productModel = new Product();
@@ -53,6 +55,7 @@ class ShopController extends Controller {
             }
         }
         
+
         // Phân trang reviews
         $reviewsPerPage = 2;
         $currentPage = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
@@ -87,6 +90,7 @@ class ShopController extends Controller {
 
         $userId = (int) ($_SESSION['user_id'] ?? ($_POST['user_id'] ?? 0));
         $totalPrice = (float) ($_POST['total_price'] ?? 0);
+        $couponCode = trim((string) ($_POST['coupon_code'] ?? ''));
 
         if ($userId <= 0 || $totalPrice <= 0) {
             http_response_code(400);
@@ -112,6 +116,50 @@ class ShopController extends Controller {
             return;
         }
 
+        $appliedCoupon = null;
+        $discountAmount = 0.0;
+        if ($couponCode !== '') {
+            $couponModel = new Coupon();
+            $coupon = $couponModel->getCouponByCode($couponCode);
+            if ($coupon) {
+                $now = time();
+                $valid = true;
+                if (!empty($coupon['valid_from']) && strtotime($coupon['valid_from']) > $now) {
+                    $valid = false;
+                }
+                if (!empty($coupon['valid_until']) && strtotime($coupon['valid_until']) < $now) {
+                    $valid = false;
+                }
+                if ($coupon['status'] !== 'active') {
+                    $valid = false;
+                }
+                $usage_limit = (int) ($coupon['usage_limit'] ?? 0);
+                $used_count = (int) ($coupon['used_count'] ?? 0);
+                if ($usage_limit > 0 && $used_count >= $usage_limit) {
+                    $valid = false;
+                }
+
+                if ($valid) {
+                    $percent = (float) ($coupon['discount_percent'] ?? 0);
+                    $amount = (float) ($coupon['discount_amount'] ?? 0);
+                    if ($percent > 0) {
+                        $discountAmount = ($percent / 100.0) * $totalPrice;
+                    } elseif ($amount > 0) {
+                        $discountAmount = $amount;
+                    }
+                    if ($discountAmount > $totalPrice) {
+                        $discountAmount = $totalPrice;
+                    }
+                    $appliedCoupon = [
+                        'id' => (int) $coupon['id'],
+                        'code' => $coupon['code'],
+                        'discount' => $discountAmount,
+                    ];
+                    $totalPrice = max(0, $totalPrice - $discountAmount);
+                }
+            }
+        }
+
         $_SESSION['payment_qr'] = [
             'user_id' => $userId,
             'cart_id' => $cartId,
@@ -121,6 +169,7 @@ class ShopController extends Controller {
             'account_number' => '33027102005',
             'note' => 'Thanh toan don hang SNIKEI',
             'cart_items' => $cartItems,
+            'coupon' => $appliedCoupon,
         ];
 
         $this->redirect('/checkout/qr');
@@ -187,6 +236,13 @@ class ShopController extends Controller {
 
             $cartItemModel->clearCartItemsByCartId($cartId);
             $cartModel->clearCart($userId);
+
+            // If coupon was applied, increment used_count
+            $couponInfo = $paymentQr['coupon'] ?? null;
+            if (!empty($couponInfo) && !empty($couponInfo['id'])) {
+                $couponModel = new Coupon();
+                $couponModel->incrementUsedCount((int) $couponInfo['id']);
+            }
         }
 
         unset($_SESSION['payment_qr']);
