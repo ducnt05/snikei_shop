@@ -1,241 +1,112 @@
 # Snikei Shop
 
-Ứng dụng web bán giày theo mô hình **MVC** (PHP thuần), bao gồm khu vực người dùng và trang quản trị viên.
+Snikei Shop là một ứng dụng web bán giày nhỏ, xây dựng theo mô hình MVC bằng PHP thuần. Bao gồm khu vực người dùng (shop, giỏ hàng, thanh toán, blog, hồ sơ...) và khu vực quản trị để quản lý sản phẩm, đơn hàng và khách hàng.
 
-## Công Nghệ Sử Dụng
+## Tổng quan nhanh
+- Ngôn ngữ: PHP (PHP 8+)
+- Database: MySQL / MariaDB
+- Dependency: Composer (PSR-4)
+- Chạy local: XAMPP / WAMP / PHP built-in server
 
-- **PHP 8+**
-- **MySQL / MariaDB**
-- **Composer** (PSR-4 autoload)
-- **HTML5 / CSS3 / JavaScript**
-- **XAMPP** (khuyến nghị để chạy local)
+## Tính năng chính
+- Trang chủ, danh mục, trang shop và chi tiết sản phẩm
+- Đăng ký / đăng nhập / hồ sơ người dùng
+- Giỏ hàng, thanh toán (QR/checkout)
+- Đánh giá sản phẩm, liên hệ, blog
+- Khu vực Admin: dashboard, quản lý sản phẩm, khách hàng, đơn hàng, tin nhắn, coupons, thuế
 
-## Cấu Trúc Thư Mục
+## Yêu cầu
+- PHP 8+
+- MySQL hoặc MariaDB
+- Composer
+- Web server (Apache trong XAMPP recommended)
 
-```text
-snikei_shop/
-├── app/
-│   ├── controllers/        # Các controller xử lý logic
-│   ├── models/            # Các model tương tác database
-│   ├── views/             # Các view hiển thị giao diện
-│   └── Core/
-├── config/
-│   └── config.php         # Cấu hình ứng dụng
-├── public/
-│   ├── index.php          # Entry point
-│   ├── assets/            # CSS, JS, Images
-│   └── uploads/           # Thư mục upload file
-├── vendor/                # Dependencies từ Composer
-├── composer.json
-└── README.md
+## Cách cài đặt (chạy local)
+1. Sao chép project vào thư mục web server, ví dụ `C:/xampp/htdocs/snikei_shop`.
+2. Khởi động Apache và MySQL (XAMPP Control Panel).
+3. Tạo database mới (ví dụ tên `snikei`) trong phpMyAdmin.
+4. Import file SQL cung cấp (ví dụ `snikei_shop.sql`) vào database vừa tạo.
+5. Cài dependencies (nếu cần):
+
+```bash
+composer install
 ```
 
-## Cài Đặt Nhanh (XAMPP)
+6. Cấu hình kết nối database: chỉnh thông tin trong `app/models/Database.php` hoặc `config/config.php` (tùy cấu trúc):
 
-### Yêu Cầu
+- Host: `localhost`
+- Database: `snikei` (hoặc tên bạn tạo)
+- User: `root`
+- Password: (để trống hoặc theo cấu hình của bạn)
 
-- XAMPP (hoặc server PHP local khác)
-- Composer đã cài đặt
+7. Mở trình duyệt tới:
 
-### Các Bước Cài Đặt
+```
+http://localhost/snikei_shop/public/
+```
 
-1. **Đặt project vào thư mục:**
+## Cấu trúc thư mục (tóm tắt)
 
-   ```bash
-   C:/xampp/htdocs/snikei_shop
-   ```
+- `app/controllers/` — Controllers
+- `app/models/` — Models (kết nối DB và truy vấn)
+- `app/views/` — Views (giao diện)
+- `public/` — Entry point (`index.php`), assets, uploads
+- `config/` — Cấu hình ứng dụng
+- `vendor/` — Thư viện Composer
 
-2. **Khởi động XAMPP:**
-   - Mở XAMPP Control Panel
-   - Nhấn "Start" cho Apache
-   - Nhấn "Start" cho MySQL
+## Thông tin cấu hình quan trọng
+- Front controller: `public/index.php`
+- Kiểm tra/đổi cấu hình DB tại `app/models/Database.php` hoặc `config/config.php` nếu dự án sử dụng file cấu hình tách biệt.
 
-3. **Tạo database:**
-   - Mở phpMyAdmin: `http://localhost/phpmyadmin`
-   - Tạo database mới với tên `snikei`
+## Phát triển & Ghi nhớ
+- Thêm controller: tạo file trong `app/controllers/` và extend từ `App\\Core\\Controller`.
+- Thêm model: tạo file trong `app/models/` và sử dụng kết nối DB có sẵn.
+- Luôn validate và sanitize dữ liệu đầu vào; sử dụng prepared statements để tránh SQL injection.
 
-4. **Import database:**
-   - Chọn database `snikei`
-   - Vào tab "Import"
-   - Chọn file `snikei_shop.sql`
-   - Nhấn "Import"
-
-5. **Cài đặt dependencies:**
-
-   ```bash
-   composer install
-   ```
-
-6. **Truy cập ứng dụng:**
-   ```
-   http://localhost/snikei_shop/public/
-   ```
-
-## Cấu Hình Database
-
-Ứng dụng sử dụng cấu hình kết nối trong `app/models/Database.php`:
-
-| Tham số  | Giá trị mặc định |
-| -------- | ---------------- |
-| Host     | `localhost`      |
-| Database | `snikei`         |
-| User     | `root`           |
-| Password | `123456`         |
-
-**Lưu ý:** Nếu máy tính của bạn sử dụng thông tin khác, hãy sửa trực tiếp file `app/models/Database.php`.
-
-## Tính Năng Chính
-
-### Frontend - Khu Vực Người Dùng
-
-- 🏠 Trang chủ
-- 🔐 Đăng nhập / Đăng ký / Đăng xuất
-- 📁 Danh mục sản phẩm
-- 🛍️ Shop + Chi tiết sản phẩm
-- 🛒 Giỏ hàng + Thanh toán
-- ⭐ Đánh giá sản phẩm
-- 📧 Trang liên hệ
-- 📰 Blog
-- 👤 Trang hồ sơ
-
-### Backend - Khu Vực Quản Trị
-
-- 📊 Dashboard
-- 📦 Quản lý sản phẩm (thêm, sửa, xóa)
-- 👥 Danh sách khách hàng
-- 💬 Danh sách tin nhắn
-- 📋 Quản lý đơn hàng
-- 📈 Overview doanh số
-- 🧾 Hóa đơn
-- 💳 Quản lý thanh toán
-- 📅 Lịch sự kiện
-- 🔖 Quản lý thuế
-
-## Các Route Chính
-
-### 🌐 Route Công Khai
-
-| Route           | Mô Tả             |
-| --------------- | ----------------- |
-| `/`             | Trang chủ         |
-| `/login`        | Đăng nhập         |
-| `/register`     | Đăng ký tài khoản |
-| `/contact`      | Liên hệ           |
-| `/about`        | Giới thiệu        |
-| `/blog`         | Blog              |
-| `/categories`   | Danh mục sản phẩm |
-| `/shop`         | Cửa hàng          |
-| `/shop?id={id}` | Chi tiết sản phẩm |
-| `/checkout`     | Thanh toán        |
-
-### ⚙️ Route Xử Lý Form
-
-| Route               | Chức Năng              |
-| ------------------- | ---------------------- |
-| `/process_login`    | Xử lý đăng nhập        |
-| `/process_register` | Xử lý đăng ký          |
-| `/process_contact`  | Xử lý tin nhắn liên hệ |
-| `/process_addcart`  | Thêm sản phẩm vào giỏ  |
-
-### 🔒 Route Admin (Cần xác thực)
-
-| Route              | Chức Năng          |
-| ------------------ | ------------------ |
-| `/admin/dashboard` | Dashboard quản trị |
-| `/admin/products`  | Quản lý sản phẩm   |
-| `/admin/customers` | Quản lý khách hàng |
-| `/admin/orders`    | Quản lý đơn hàng   |
-| `/admin/messages`  | Quản lý tin nhắn   |
-
-## Hướng Dẫn Phát Triển
-
-### Thêm Controller Mới
-
-1. Tạo file mới trong `app/controllers/`
-2. Extend từ class `Controller`
-3. Định nghĩa các method public
+Ví dụ nhanh controller:
 
 ```php
 <?php
-namespace App\Controllers;
-
-use App\Core\Controller;
+namespace App\\Controllers;
+use App\\Core\\Controller;
 
 class MyController extends Controller {
-    public function index() {
-        $this->view('my_view', ['data' => 'value']);
-    }
+   public function index() {
+      $this->view('my_view', ['data' => 'value']);
+   }
 }
 ```
 
-### Thêm Model Mới
+## Routes cơ bản
+- `/` — Trang chủ
+- `/login`, `/register`, `/logout` — Xác thực
+- `/shop`, `/shop?id={id}` — Danh sách / chi tiết sản phẩm
+- `/contact`, `/about`, `/blog`
+- Các route admin nằm dưới `/admin/*` (yêu cầu quyền admin)
 
-1. Tạo file mới trong `app/models/`
-2. Extend từ class `Database`
-3. Định nghĩa các method truy vấn
+## Bảo mật
+- Kiểm tra session trước khi truy cập khu vực admin
+- Mã hóa mật khẩu bằng `password_hash()`
+- Sử dụng prepared statements / parameterized queries
 
-```php
-<?php
-namespace App\Models;
+## Đóng góp
+1. Fork repository
+2. Tạo branch feature: `git checkout -b feature/your-feature`
+3. Commit và push
+4. Mở Pull Request mô tả thay đổi
 
-use App\Models\Database;
+## License
+Dự án được cấp phép theo MIT License.
 
-class MyModel extends Database {
-    public function getAllRecords() {
-        return $this->db->query("SELECT * FROM table")->fetchAll();
-    }
-}
-```
-
-## Bảo Mật
-
-- ✅ Kiểm tra session trước khi truy cập khu vực admin
-- ✅ Sử dụng prepared statements để tránh SQL injection
-- ✅ Validate và sanitize dữ liệu từ form
-- ✅ Mã hóa mật khẩu sử dụng `password_hash()`
-
-## Tác Giả & Đóng Góp
-
-**Tác Giả:** Snikei Team
-
-Nếu bạn muốn đóng góp, vui lòng:
-
-1. Fork project
-2. Tạo branch feature mới (`git checkout -b feature/AmazingFeature`)
-3. Commit thay đổi (`git commit -m 'Add some AmazingFeature'`)
-4. Push lên branch (`git push origin feature/AmazingFeature`)
-5. Mở Pull Request
-
-## Giấy Phép
-
-Dự án này được cấp phép theo **MIT License**.
-
-## Liên Hệ & Hỗ Trợ
-
-- 📧 Email: support@snikei.com
-- 🌐 Website: https://snikei.com
-- 📱 Hotline: 0123-456-789
+## Liên hệ
+- Email: support@snikei.com
 
 ---
 
-**Lần cập nhật cuối:** May 2026
+Nếu bạn muốn, tôi có thể:
 
-- `/process_add_review`
-- `/logout`
+- Thêm hướng dẫn chi tiết cài đặt database (đường dẫn file .sql)
+- Viết hướng dẫn deploy lên server (Apache/nginx)
+- Dịch sang tiếng Anh
 
-### Admin
-
-- `/admin/dashboard`
-- `/admin/products`
-- `/admin/product_add`
-- `/admin/edit_product?id={id}`
-- `/admin/delete_product?id={id}`
-- `/admin/customers`
-- `/admin/messages`
-- `/admin/overview`
-
-## Ghi chu
-
-- Front controller nam o `public/index.php`.
-- Project dung session de xac thuc.
-- Cac route admin yeu cau tai khoan co role `admin`.
+Cho tôi biết bạn muốn bổ sung gì nữa nhé.
